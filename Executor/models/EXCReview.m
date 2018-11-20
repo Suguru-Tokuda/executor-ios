@@ -1,14 +1,14 @@
 //
-//  Review.m
+//  EXCReview.m
 //  Executor
 //
 //  Created by Suguru on 11/19/18.
 //  Copyright © 2018 Executor. All rights reserved.
 //
 
-#import "Review.h"
+#import "EXCReview.h"
 
-@implementation Review
+@implementation EXCReview
 
 - (instancetype) initWithReviewId:(NSString *)reviewId
                             title:(NSString *)title

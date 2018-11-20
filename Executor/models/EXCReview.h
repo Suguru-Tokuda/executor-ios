@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface Review : NSObject
+@interface EXCReview : NSObject
 
 @property (nonatomic) NSString *reviewId;
 @property (nonatomic) NSString *title;
