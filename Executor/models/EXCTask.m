@@ -10,13 +10,13 @@
 
 @implementation EXCTask
 
-- (instancetype) initWithName:(NSString *)taskName {
+- (instancetype)initWithName:(NSString *)taskName {
     self = [super init];
     self.taskName = taskName;
     return self;
 }
 
-- (instancetype) initWithId:(NSString *)taskId taskName:(NSString *)taskName startDate:(NSDate *)startDate endDate:(NSDate *)endDate completed:(Boolean)completed approved:(Boolean)approved {
+- (instancetype)initWithId:(NSString *)taskId taskName:(NSString *)taskName startDate:(NSDate *)startDate endDate:(NSDate *)endDate completed:(Boolean)completed approved:(Boolean)approved {
     self = [super init];
     self.taskId = taskId;
     self.taskName = taskName;

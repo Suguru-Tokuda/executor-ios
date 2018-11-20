@@ -17,12 +17,7 @@
 @property (nonatomic) Boolean completed;
 @property (nonatomic) Boolean approved;
 
-- (instancetype) initWithName:(NSString *)taskName;
-- (instancetype) initWithId:(NSString *)taskId
-                   taskName: (NSString *)taskName
-                  startDate: (NSDate *)startDate
-                    endDate: (NSDate *)endDate
-                  completed: (Boolean)completed
-                   approved: (Boolean)approved;
+- (instancetype)initWithName:(NSString *)taskName;
+- (instancetype)initWithId:(NSString *)taskId taskName: (NSString *)taskName startDate: (NSDate *)startDate endDate: (NSDate *)endDate completed: (Boolean)completed approved: (Boolean)approved;
 
 @end

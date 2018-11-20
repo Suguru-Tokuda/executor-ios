@@ -10,10 +10,7 @@
 
 @implementation EXCReview
 
-- (instancetype) initWithReviewId:(NSString *)reviewId
-                            title:(NSString *)title
-                reviewDescription:(NSString *)reviewDescription
-                         postDate:(NSDate *)postDate {
+- (instancetype)initWithReviewId:(NSString *)reviewId title:(NSString *)title reviewDescription:(NSString *)reviewDescription postDate:(NSDate *)postDate {
     self = [super init];
     self.reviewId = reviewId;
     self.title = title;
@@ -22,9 +19,7 @@
     return self;
 }
 
-- (instancetype) initWithTitle:(NSString *)title
-             reviewDescription:(NSString *)reviewDescription
-                      postDate:(NSDate *)postDate {
+- (instancetype)initWithTitle:(NSString *)title reviewDescription:(NSString *)reviewDescription postDate:(NSDate *)postDate {
     self = [super init];
     self.title = title;
     self.reviewDescription = reviewDescription;

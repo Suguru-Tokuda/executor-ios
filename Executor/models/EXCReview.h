@@ -8,8 +8,6 @@
 
 #import <Foundation/Foundation.h>
 
-NS_ASSUME_NONNULL_BEGIN
-
 @interface EXCReview : NSObject
 
 @property (nonatomic) NSString *reviewId;
@@ -17,15 +15,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) NSString *reviewDescription;
 @property (nonatomic) NSDate *postDate;
 
-- (instancetype) initWithReviewId:(NSString *)reviewId
-                           title:(NSString *)title
-               reviewDescription:(NSString *)reviewDescription
-                        postDate:(NSDate *)postDate;
+- (instancetype)initWithReviewId:(NSString *)reviewId title:(NSString *)title reviewDescription:(NSString *)reviewDescription postDate:(NSDate *)postDate;
 
-- (instancetype) initWithTitle:(NSString *)title
-             reviewDescription:(NSString *)reviewDescription
-                      postDate:(NSDate *)postDate;
+- (instancetype)initWithTitle:(NSString *)title reviewDescription:(NSString *)reviewDescription postDate:(NSDate *)postDate;
 
 @end
-
-NS_ASSUME_NONNULL_END

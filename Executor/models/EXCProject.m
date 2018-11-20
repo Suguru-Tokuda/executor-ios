@@ -10,20 +10,13 @@
 
 @implementation EXCProject
 
-- (instancetype) initWithName:(NSString *)projectName {
+- (instancetype)initWithName:(NSString *)projectName {
     self = [super init];
     self.projectName = projectName;
     return self;
 }
 
-- (instancetype) initWithId:(NSString *)projectId
-                projectName:(NSString *)projectName
-                  startDate:(NSDate *)startDate
-                    endDate:(NSDate *)endDate
-                    picture:(NSData *)picture
-                      tasks:(NSMutableArray *)tasks
-                  completed:(Boolean)completed
-                   archived:(Boolean)archived {
+- (instancetype)initWithId:(NSString *)projectId projectName:(NSString *)projectName startDate:(NSDate *)startDate endDate:(NSDate *)endDate picture:(NSData *)picture tasks:(NSMutableArray *)tasks completed:(Boolean)completed archived:(Boolean)archived {
     self = [super init];
     self.projectId = projectId;
     self.projectName = projectName;

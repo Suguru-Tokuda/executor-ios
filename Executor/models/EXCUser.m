@@ -10,10 +10,7 @@
 
 @implementation EXCUser
 
-- (instancetype) initWithFirstName:(NSString *)firstName
-                          lastName:(NSString *)lastName
-                          username:(NSString *)username
-                             email:(NSString *)email {
+- (instancetype)initWithFirstName:(NSString *)firstName lastName:(NSString *)lastName username:(NSString *)username email:(NSString *)email {
     self = [super init];
     self.firstName = firstName;
     self.lastName = lastName;
@@ -22,14 +19,7 @@
     return self;
 }
 
-- (instancetype) initWithId:(NSString *)userId
-                  firstName:(NSString *)firstName
-                   lastName:(NSString *)lastName
-                      email:(NSString *)email
-                   username:(NSString *)username
-                     skills:(NSMutableArray *)skills
-                    picture:(NSData *)picture
-                       role:(NSString *)role {
+- (instancetype)initWithId:(NSString *)userId firstName:(NSString *)firstName lastName:(NSString *)lastName email:(NSString *)email username:(NSString *)username skills:(NSMutableArray *)skills picture:(NSData *)picture role:(NSString *)role {
     self = [super init];
     self.userId = userId;
     self.firstName = firstName;
@@ -40,7 +30,5 @@
     self.role = role;
     return self;
 }
-
-
 
 @end
