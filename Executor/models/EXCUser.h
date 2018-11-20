@@ -1,5 +1,5 @@
 //
-//  User.h
+//  EXCUser.h
 //  Executor
 //
 //  Created by Suguru on 11/18/18.
