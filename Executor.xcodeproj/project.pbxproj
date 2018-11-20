@@ -15,6 +15,12 @@
 		BB6EC30221A25E700054239C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = BB6EC30121A25E700054239C /* main.m */; };
 		BB6EC30C21A25E700054239C /* ExecutorTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BB6EC30B21A25E700054239C /* ExecutorTests.m */; };
 		BB6EC31721A25E700054239C /* ExecutorUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = BB6EC31621A25E700054239C /* ExecutorUITests.m */; };
+		BB6EC32821A262420054239C /* AccountInfoService.m in Sources */ = {isa = PBXBuildFile; fileRef = BB6EC32721A262420054239C /* AccountInfoService.m */; };
+		BB6EC32C21A269990054239C /* UsersService.m in Sources */ = {isa = PBXBuildFile; fileRef = BB6EC32B21A269990054239C /* UsersService.m */; };
+		BB6EC33121A26BDD0054239C /* EXCUser.m in Sources */ = {isa = PBXBuildFile; fileRef = BB6EC33021A26BDD0054239C /* EXCUser.m */; };
+		BB6EC33421A26E750054239C /* EXCProject.m in Sources */ = {isa = PBXBuildFile; fileRef = BB6EC33321A26E750054239C /* EXCProject.m */; };
+		BB6EC33721A270030054239C /* EXCTask.m in Sources */ = {isa = PBXBuildFile; fileRef = BB6EC33621A270030054239C /* EXCTask.m */; };
+		BBEB3CAE21A3AFD40087B7D5 /* Review.m in Sources */ = {isa = PBXBuildFile; fileRef = BBEB3CAD21A3AFD40087B7D5 /* Review.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +57,18 @@
 		BB6EC31221A25E700054239C /* ExecutorUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ExecutorUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		BB6EC31621A25E700054239C /* ExecutorUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ExecutorUITests.m; sourceTree = "<group>"; };
 		BB6EC31821A25E700054239C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BB6EC32721A262420054239C /* AccountInfoService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AccountInfoService.m; sourceTree = "<group>"; };
+		BB6EC32921A262660054239C /* AccountInfoService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AccountInfoService.h; sourceTree = "<group>"; };
+		BB6EC32A21A269850054239C /* UsersService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UsersService.h; sourceTree = "<group>"; };
+		BB6EC32B21A269990054239C /* UsersService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UsersService.m; sourceTree = "<group>"; };
+		BB6EC32F21A26BB90054239C /* EXCUser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EXCUser.h; sourceTree = "<group>"; };
+		BB6EC33021A26BDD0054239C /* EXCUser.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EXCUser.m; sourceTree = "<group>"; };
+		BB6EC33221A26E650054239C /* EXCProject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EXCProject.h; sourceTree = "<group>"; };
+		BB6EC33321A26E750054239C /* EXCProject.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EXCProject.m; sourceTree = "<group>"; };
+		BB6EC33521A26FF50054239C /* EXCTask.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EXCTask.h; sourceTree = "<group>"; };
+		BB6EC33621A270030054239C /* EXCTask.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EXCTask.m; sourceTree = "<group>"; };
+		BBEB3CAC21A3AFD40087B7D5 /* Review.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Review.h; sourceTree = "<group>"; };
+		BBEB3CAD21A3AFD40087B7D5 /* Review.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Review.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,15 +119,12 @@
 		BB6EC2F121A25E6F0054239C /* Executor */ = {
 			isa = PBXGroup;
 			children = (
-				BB6EC2F221A25E6F0054239C /* AppDelegate.h */,
-				BB6EC2F321A25E6F0054239C /* AppDelegate.m */,
-				BB6EC2F521A25E6F0054239C /* ViewController.h */,
-				BB6EC2F621A25E6F0054239C /* ViewController.m */,
-				BB6EC2F821A25E6F0054239C /* Main.storyboard */,
+				BB6EC32E21A26B750054239C /* models */,
+				BB6EC32621A2616D0054239C /* views */,
+				BB6EC32521A2615E0054239C /* application */,
+				BB6EC32421A261300054239C /* services */,
 				BB6EC2FB21A25E700054239C /* Assets.xcassets */,
-				BB6EC2FD21A25E700054239C /* LaunchScreen.storyboard */,
 				BB6EC30021A25E700054239C /* Info.plist */,
-				BB6EC30121A25E700054239C /* main.m */,
 			);
 			path = Executor;
 			sourceTree = "<group>";
@@ -130,6 +145,53 @@
 				BB6EC31821A25E700054239C /* Info.plist */,
 			);
 			path = ExecutorUITests;
+			sourceTree = "<group>";
+		};
+		BB6EC32421A261300054239C /* services */ = {
+			isa = PBXGroup;
+			children = (
+				BB6EC32721A262420054239C /* AccountInfoService.m */,
+				BB6EC32921A262660054239C /* AccountInfoService.h */,
+				BB6EC32A21A269850054239C /* UsersService.h */,
+				BB6EC32B21A269990054239C /* UsersService.m */,
+			);
+			path = services;
+			sourceTree = "<group>";
+		};
+		BB6EC32521A2615E0054239C /* application */ = {
+			isa = PBXGroup;
+			children = (
+				BB6EC30121A25E700054239C /* main.m */,
+				BB6EC2F221A25E6F0054239C /* AppDelegate.h */,
+				BB6EC2F321A25E6F0054239C /* AppDelegate.m */,
+			);
+			path = application;
+			sourceTree = "<group>";
+		};
+		BB6EC32621A2616D0054239C /* views */ = {
+			isa = PBXGroup;
+			children = (
+				BB6EC2F521A25E6F0054239C /* ViewController.h */,
+				BB6EC2F621A25E6F0054239C /* ViewController.m */,
+				BB6EC2F821A25E6F0054239C /* Main.storyboard */,
+				BB6EC2FD21A25E700054239C /* LaunchScreen.storyboard */,
+			);
+			path = views;
+			sourceTree = "<group>";
+		};
+		BB6EC32E21A26B750054239C /* models */ = {
+			isa = PBXGroup;
+			children = (
+				BB6EC32F21A26BB90054239C /* EXCUser.h */,
+				BB6EC33021A26BDD0054239C /* EXCUser.m */,
+				BB6EC33221A26E650054239C /* EXCProject.h */,
+				BB6EC33321A26E750054239C /* EXCProject.m */,
+				BB6EC33521A26FF50054239C /* EXCTask.h */,
+				BB6EC33621A270030054239C /* EXCTask.m */,
+				BBEB3CAC21A3AFD40087B7D5 /* Review.h */,
+				BBEB3CAD21A3AFD40087B7D5 /* Review.m */,
+			);
+			path = models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -263,7 +325,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				BB6EC2F721A25E6F0054239C /* ViewController.m in Sources */,
+				BB6EC32821A262420054239C /* AccountInfoService.m in Sources */,
+				BBEB3CAE21A3AFD40087B7D5 /* Review.m in Sources */,
+				BB6EC33121A26BDD0054239C /* EXCUser.m in Sources */,
+				BB6EC32C21A269990054239C /* UsersService.m in Sources */,
+				BB6EC33721A270030054239C /* EXCTask.m in Sources */,
 				BB6EC30221A25E700054239C /* main.m in Sources */,
+				BB6EC33421A26E750054239C /* EXCProject.m in Sources */,
 				BB6EC2F421A25E6F0054239C /* AppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -436,6 +504,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = FVEGF5DQ7U;
 				INFOPLIST_FILE = Executor/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -452,6 +521,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = FVEGF5DQ7U;
 				INFOPLIST_FILE = Executor/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
