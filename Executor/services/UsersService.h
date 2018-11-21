@@ -15,7 +15,7 @@
 
 @property (nonatomic, readonly) NSString *endPoint;
 
-- (EXCUser *)getUser:(NSString *)userId;
-- (NSArray *)getUsersWithEmail:(NSString *)email firstName:(NSString *)firstName lastName:(NSString *)lastName skills:(NSString *)skills;
+- (NSMutableURLRequest *)getUserRequest:(NSString *)userId;
+- (NSMutableURLRequest *)getUsersRequestWithEmail:(NSString *)email firstName:(NSString *)firstName lastName:(NSString *)lastName skills:(NSString *)skills;
 
 @end

@@ -13,7 +13,7 @@
 
 NSString *endPoijnt = @"users/";
 
-- (NSMutableURLRequest *)getUser:(NSString *)userId {
+- (NSMutableURLRequest *)getUserRequest:(NSString *)userId {
     NSString *requestString = [NSString stringWithFormat:@"%@%@%@", BASE_URL, self.endPoint, userId];
     NSURL *url = [NSURL URLWithString:requestString];
     NSMutableURLRequest *req = [EXCMutableURLRequest requestWithURL:url];
@@ -21,7 +21,7 @@ NSString *endPoijnt = @"users/";
     return req;
 }
 
-- (NSMutableURLRequest *)getUsersWithEmail:(NSString *)email firstName:(NSString *)firstName lastName:(NSString *)lastName skills:(NSString *)skills {
+- (NSMutableURLRequest *)getUsersRequestWithEmail:(NSString *)email firstName:(NSString *)firstName lastName:(NSString *)lastName skills:(NSString *)skills {
     NSString *requestString = [NSString stringWithFormat:@"%@%@", BASE_URL, self.endPoint];
     NSURL *url = [NSURL URLWithString:requestString];
     NSMutableURLRequest *req = [EXCMutableURLRequest requestWithURL:url];
