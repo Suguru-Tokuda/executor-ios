@@ -17,5 +17,7 @@
 
 - (NSMutableURLRequest *)getUserRequest:(NSString *)userId;
 - (NSMutableURLRequest *)getUsersRequestWithEmail:(NSString *)email firstName:(NSString *)firstName lastName:(NSString *)lastName skills:(NSString *)skills;
+- (EXCUser *)getUserWithJsonData:(NSData *)jsonData error:(NSError *)err;
+- (NSMutableArray *)getUsersWithJsonData:(NSData *)jsonData error:(NSError *)err;
 
 @end
