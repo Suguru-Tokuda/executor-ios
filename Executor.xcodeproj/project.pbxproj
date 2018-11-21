@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7FBA7DD421A5ABF200759877 /* EXCMutableURLRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FBA7DD321A5ABF200759877 /* EXCMutableURLRequest.m */; };
 		BB6EC2F421A25E6F0054239C /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BB6EC2F321A25E6F0054239C /* AppDelegate.m */; };
 		BB6EC2F721A25E6F0054239C /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BB6EC2F621A25E6F0054239C /* ViewController.m */; };
 		BB6EC2FA21A25E6F0054239C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BB6EC2F821A25E6F0054239C /* Main.storyboard */; };
@@ -41,6 +42,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		7FBA7DD221A5ABF200759877 /* EXCMutableURLRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EXCMutableURLRequest.h; sourceTree = "<group>"; };
+		7FBA7DD321A5ABF200759877 /* EXCMutableURLRequest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EXCMutableURLRequest.m; sourceTree = "<group>"; };
 		BB6EC2EF21A25E6F0054239C /* Executor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Executor.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BB6EC2F221A25E6F0054239C /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		BB6EC2F321A25E6F0054239C /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -154,6 +157,8 @@
 				BB6EC32921A262660054239C /* AccountInfoService.h */,
 				BB6EC32A21A269850054239C /* UsersService.h */,
 				BB6EC32B21A269990054239C /* UsersService.m */,
+				7FBA7DD221A5ABF200759877 /* EXCMutableURLRequest.h */,
+				7FBA7DD321A5ABF200759877 /* EXCMutableURLRequest.m */,
 			);
 			path = services;
 			sourceTree = "<group>";
@@ -331,6 +336,7 @@
 				BB6EC32C21A269990054239C /* UsersService.m in Sources */,
 				BB6EC33721A270030054239C /* EXCTask.m in Sources */,
 				BB6EC30221A25E700054239C /* main.m in Sources */,
+				7FBA7DD421A5ABF200759877 /* EXCMutableURLRequest.m in Sources */,
 				BB6EC33421A26E750054239C /* EXCProject.m in Sources */,
 				BB6EC2F421A25E6F0054239C /* AppDelegate.m in Sources */,
 			);

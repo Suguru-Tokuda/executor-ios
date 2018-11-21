@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "EXCUser.h"
 #import "AccountInfoService.h"
+#import "EXCMutableURLRequest.h"
 
 @interface UsersService : NSObject
 
