@@ -7,9 +7,14 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "EXCUser.h"
+#import "AccountInfoService.h"
 
 @interface UsersService : NSObject
 
-- (NSArray *)getUsers;
+@property (nonatomic, readonly) NSString *endPoint;
+
+- (EXCUser *)getUser:(NSString *)userId;
+- (NSArray *)getUsersWithEmail:(NSString *)email firstName:(NSString *)firstName lastName:(NSString *)lastName skills:(NSString *)skills;
 
 @end

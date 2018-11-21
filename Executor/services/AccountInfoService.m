@@ -14,6 +14,8 @@
 
 @implementation AccountInfoService
 
+NSString *const BASE_URL = @"/Executor/api";
+
 - (NSString *)getAPIUrl {
     return ([_identifier isEqualToString: @"production"] ? _productionAPIUrl : ([_identifier isEqualToString: @"dev"] ? _devAPIUrl : _localhostUrl));
 }

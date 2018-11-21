@@ -10,6 +10,8 @@
 
 @interface AccountInfoService : NSObject
 
+extern NSString *const BASE_URL;
+
 @property NSString *productionAPIUrl;
 @property NSString *devAPIUrl;
 @property NSString *localhostUrl;
