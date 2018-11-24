@@ -10,18 +10,20 @@
 
 @interface EXCUser : NSObject
 
-@property (nonatomic) NSString *userId;
+@property (nonatomic) long userId;
 @property (nonatomic) NSString *firstName;
 @property (nonatomic) NSString *lastName;
 @property (nonatomic) NSString *username;
 @property (nonatomic) NSString *email;
+@property (nonatomic) NSString *password;
 @property (nonatomic) NSMutableArray *skills;
 @property (nonatomic) NSData *picture;
 @property (nonatomic) NSString *role;
 @property (nonatomic) NSArray *privileges;
+@property (nonatomic) Boolean archived;
+@property (nonatomic) Boolean confirmed;
 
 - (instancetype)initWithFirstName:(NSString *)firstName lastName:(NSString *)lastName username:(NSString *)username email:(NSString *)email;
-
-- (instancetype)initWithId:(NSString *)userId firstName:(NSString *)firstName lastName:(NSString *)lastName email:(NSString *)email username:(NSString *)username skills:(NSMutableArray *) skills picture:(NSData *)picture role:(NSString *)role;
+- (instancetype)initWithId:(long)userId firstName:(NSString *)firstName lastName:(NSString *)lastName email:(NSString *)email username:(NSString *)username skills:(NSMutableArray *) skills picture:(NSData *)picture role:(NSString *)role;
 
 @end

@@ -7,16 +7,18 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "AppDelegate.h"
+#import "EXCMutableURLRequest.h"
 
 @interface AccountInfoService : NSObject
 
 extern NSString *const BASE_URL;
 
-@property NSString *productionAPIUrl;
-@property NSString *devAPIUrl;
-@property NSString *localhostUrl;
-@property NSString *identifier;
+@property (nonatomic) NSString *productionAPIUrl;
+@property (nonatomic) NSString *devAPIUrl;
+@property (nonatomic) NSString *localhostUrl;
 
 - (NSString *)getAPIUrl;
+- (NSMutableURLRequest *)getLoginRequestWithEmail:(NSString *)email password:(NSString *)password;
 
 @end

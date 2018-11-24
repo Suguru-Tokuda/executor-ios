@@ -11,10 +11,14 @@
 
 @implementation UsersService
 
-NSString *endPoijnt = @"users/";
+- (instancetype) init {
+    self = [super init];
+    self.endPoint = [NSString stringWithFormat:@"%@%@", BASE_URL, @"/users"];
+    return self;
+}
 
 - (NSMutableURLRequest *)getUserRequest:(NSString *)userId {
-    NSString *requestString = [NSString stringWithFormat:@"%@%@%@", BASE_URL, self.endPoint, userId];
+    NSString *requestString = [NSString stringWithFormat:@"%@%@", self.endPoint, userId];
     NSURL *url = [NSURL URLWithString:requestString];
     NSMutableURLRequest *req = [EXCMutableURLRequest requestWithURL:url];
     [req setValue:@"application-json" forHTTPHeaderField:@"Accept"];
@@ -22,16 +26,94 @@ NSString *endPoijnt = @"users/";
 }
 
 - (NSMutableURLRequest *)getUsersRequestWithEmail:(NSString *)email firstName:(NSString *)firstName lastName:(NSString *)lastName skills:(NSString *)skills {
-    NSString *requestString = [NSString stringWithFormat:@"%@%@", BASE_URL, self.endPoint];
+    NSString *requestString = [NSString stringWithFormat:@"%@", self.endPoint];
     NSURL *url = [NSURL URLWithString:requestString];
     NSMutableURLRequest *req = [EXCMutableURLRequest requestWithURL:url];
     [req setValue:@"application-json" forHTTPHeaderField:@"Accept"];
-    [req setValue:@"email" forKey:email];
-    [req setValue:@"firstName" forKey:firstName];
-    [req setValue:@"lastName" forKey:lastName];
-    [req setValue:@"skills" forKey:skills];
+    NSString *bodyString = [NSString stringWithFormat:@"email=%@&firstName=%@&lastName=%@&skills=%@", email, firstName, lastName, skills];
+    NSData *postData = [bodyString dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:YES];
+    [req setHTTPBody:postData];
     return req;
 }
+
+- (NSMutableURLRequest *)createUserRequestWithUser:(EXCUser *)user {
+    NSString *requestString = [NSString stringWithFormat:@"%@", _endPoint];
+    NSURL *url = [NSURL URLWithString:requestString];
+    NSMutableURLRequest *req = [NSMutableURLRequest requestWithURL:url];
+    [req setHTTPMethod:@"POST"];
+    NSString *skills = @"";
+    for (NSString *skill in user.skills)
+        skills = [NSString stringWithFormat: @"%@%@", skills, skill];
+    NSString *bodyString = [NSString stringWithFormat:@"firstName=%@&lastName=%@&email=%@&username=%@&password=%@&skills=%@&picture%@&archived=%@&confirmed=%@",
+                            user.firstName,
+                            user.lastName,
+                            user.email,
+                            user.username,
+                            user.password,
+                            skills,
+                            [NSString stringWithUTF8String:[user.picture bytes]],
+                            [NSString stringWithFormat:@"%d", (user.archived == true ? 1 : 0)],
+                            [NSString stringWithFormat:@"%d", (user.confirmed == true ? 1 : 0)]
+                            ];
+    NSData *postData = [bodyString dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:YES];
+    [req setHTTPBody:postData];
+    return req;
+}
+
+- (NSMutableURLRequest *)updateUserRequestWithUser:(EXCUser *)user {
+    NSString *requestString = [NSString stringWithFormat:@"%@", _endPoint];
+    NSURL *url = [NSURL URLWithString:requestString];
+    NSMutableURLRequest *req = [NSMutableURLRequest requestWithURL:url];
+    [req setHTTPMethod:@"PATCH"];
+    [req setValue:user forKey:@"user"];
+    return req;
+}
+
+- (NSMutableURLRequest *)getUserAvailabilityRequestWithEmail:(NSString *)email {
+    NSString *requestString = [NSString stringWithFormat:@"%@%@", self.endPoint, @"/availability"];
+    NSURL *url = [NSURL URLWithString:requestString];
+    NSMutableURLRequest *req = [NSMutableURLRequest requestWithURL:url];
+    [req setValue:email forKey:@"email"];
+    return req;
+}
+
+- (NSMutableURLRequest *)updateEmailRequestWithOldEmail:(NSString *)oldEmail newEmail:(NSString *)newEmail {
+    NSString *requestString = [NSString stringWithFormat:@"%@%@", self.endPoint, @"/updateEmail"];
+    NSURL *url = [NSURL URLWithString:requestString];
+    NSMutableURLRequest *req = [EXCMutableURLRequest requestWithURL:url];
+    [req setHTTPMethod:@"POST"];
+    [req setValue:newEmail forKey:@"newEmail"];
+    [req setValue:oldEmail forKey:@"oldEmail"];
+    return req;
+}
+
+- (NSMutableURLRequest *)confirmUserRequestWithEmail:(NSString *)email {
+    NSString *requestString = [NSString stringWithFormat:@"%@%@", self.endPoint, @"/confirm"];
+    NSURL *url = [NSURL URLWithString:requestString];
+    NSMutableURLRequest *req = [NSMutableURLRequest requestWithURL:url];
+    [req setHTTPMethod:@"POST"];
+    [req setValue:email forKey:@"email"];
+    return req;
+}
+                               
+- (NSMutableURLRequest *)archiveUserRequestWithUserId:(long)userId {
+    NSString *requestString = [NSString stringWithFormat:@"%@%@", self.endPoint, @"/confirm"];
+    NSURL *url = [NSURL URLWithString:requestString];
+    NSMutableURLRequest *req = [EXCMutableURLRequest requestWithURL:url];
+    [req setHTTPMethod:@"POST"];
+    [req setValue:[NSString stringWithFormat:@"%ld", userId] forKey:@"userId"];
+    return req;
+}
+                               
+- (NSMutableURLRequest *)getUserRequestWithEmail:(NSString *)email {
+    NSString *requestString = [NSString stringWithFormat:@"%@%@", self.endPoint, @"/findByEmail"];
+    NSURL *url = [NSURL URLWithString:requestString];
+    NSMutableURLRequest *req = [EXCMutableURLRequest requestWithURL:url];
+    [req setHTTPMethod:@"POST"];
+    [req setValue:email forKey:@"email"];
+    return req;
+}
+
 
 /* This method returns a user object */
 - (EXCUser *)getUserWithJsonData:(NSData *)jsonData error:(NSError *)err {
@@ -40,7 +122,7 @@ NSString *endPoijnt = @"users/";
         NSLog(@"failed to serialize into JSON: %@", err);
     }
     NSMutableArray *tempSkills = [NSMutableArray arrayWithArray:[userDictionary[@"skills"] componentsSeparatedByString:@";"]];
-    EXCUser *user = [[EXCUser alloc] initWithId:userDictionary[@"userId"]
+    EXCUser *user = [[EXCUser alloc] initWithId:[userDictionary[@"userId"] longValue]
                                       firstName:userDictionary[@"firstName"]
                                        lastName:userDictionary[@"lastName"]
                                           email:userDictionary[@"email"]
@@ -59,7 +141,7 @@ NSString *endPoijnt = @"users/";
     NSMutableArray *users = [[NSMutableArray alloc] init];
     for (NSDictionary *userJson in userDictionary) {
         NSMutableArray *tempSkills = [NSMutableArray arrayWithArray:[userJson[@"skills"] componentsSeparatedByString:@";"]];
-        EXCUser *user = [[EXCUser alloc] initWithId:userJson[@"userId"]
+        EXCUser *user = [[EXCUser alloc] initWithId:[userJson[@"userId"] longValue]
                                           firstName:userJson[@"firstName"]
                                            lastName:userJson[@"lastName"]
                                               email:userJson[@"email"]

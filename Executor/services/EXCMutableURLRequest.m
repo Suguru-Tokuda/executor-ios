@@ -13,8 +13,8 @@
 + (NSMutableURLRequest *)requestWithURL:(NSURL *) url {
     NSMutableURLRequest *req = [NSMutableURLRequest requestWithURL:url];
     AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-    if (![appDelegate.token isEqualToString:@""])
-        [req setValue:appDelegate.token forKey:@"Authorization"];
+    if (appDelegate.token != nil)
+        [req setValue:appDelegate.token forHTTPHeaderField:@"Authorization"];
     return req;
 }
 
