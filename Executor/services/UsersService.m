@@ -17,6 +17,7 @@
     return self;
 }
 
+/* Beginning of request methods */
 - (NSMutableURLRequest *)getUserRequest:(NSString *)userId {
     NSString *requestString = [NSString stringWithFormat:@"%@%@", self.endPoint, userId];
     NSURL *url = [NSURL URLWithString:requestString];
@@ -74,6 +75,7 @@
     NSURL *url = [NSURL URLWithString:requestString];
     NSMutableURLRequest *req = [NSMutableURLRequest requestWithURL:url];
     [req setValue:email forKey:@"email"];
+    [req setValue:@"application-json" forHTTPHeaderField:@"Accept"];
     return req;
 }
 
@@ -114,6 +116,8 @@
     return req;
 }
 
+/* End of request methods */
+
 
 /* This method returns a user object */
 - (EXCUser *)getUserWithJsonData:(NSData *)jsonData error:(NSError *)err {
@@ -121,14 +125,18 @@
     if (err) {
         NSLog(@"failed to serialize into JSON: %@", err);
     }
-    NSMutableArray *tempSkills = [NSMutableArray arrayWithArray:[userDictionary[@"skills"] componentsSeparatedByString:@";"]];
+    NSMutableArray *tempSkills = nil;
+    if (userDictionary[@"skills"] != (id)[NSNull null])
+        tempSkills = [NSMutableArray arrayWithArray:[userDictionary[@"skills"] componentsSeparatedByString:@";"]];
+    NSData *picture = (userDictionary[@"picture"] == (id)[NSNull null] ? nil : [userDictionary[@"picture"] dataUsingEncoding:NSUTF8StringEncoding]);
     EXCUser *user = [[EXCUser alloc] initWithId:[userDictionary[@"userId"] longValue]
                                       firstName:userDictionary[@"firstName"]
                                        lastName:userDictionary[@"lastName"]
                                           email:userDictionary[@"email"]
                                        username:userDictionary[@"username"]
                                          skills:tempSkills
-                                        picture:(NSData *)[userDictionary[@"picture"] dataUsingEncoding:NSUTF8StringEncoding] role:userDictionary[@"role"]];
+                                        picture:picture
+                                           role:userDictionary[@"role"]];
     return user;
 }
 
@@ -140,14 +148,17 @@
     }
     NSMutableArray *users = [[NSMutableArray alloc] init];
     for (NSDictionary *userJson in userDictionary) {
-        NSMutableArray *tempSkills = [NSMutableArray arrayWithArray:[userJson[@"skills"] componentsSeparatedByString:@";"]];
+        NSMutableArray *tempSkills = nil;
+        if (userJson[@"skills"] != (id)[NSNull null])
+            tempSkills = [NSMutableArray arrayWithArray:[userJson[@"skills"] componentsSeparatedByString:@";"]];
+        NSData *picture = (userJson[@"picture"] == (id)[NSNull null] ? nil : [userJson[@"picture"] dataUsingEncoding:NSUTF8StringEncoding]);
         EXCUser *user = [[EXCUser alloc] initWithId:[userJson[@"userId"] longValue]
                                           firstName:userJson[@"firstName"]
                                            lastName:userJson[@"lastName"]
                                               email:userJson[@"email"]
                                            username:@"username"
                                              skills:tempSkills
-                                            picture:(NSData *)[userJson[@"picture"] dataUsingEncoding:NSUTF8StringEncoding]
+                                            picture:picture
                                                role:userJson[@"role"]];
         [users addObject: user];
     }
@@ -155,3 +166,4 @@
 }
 
 @end
+
