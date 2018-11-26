@@ -122,9 +122,8 @@
 /* This method returns a user object */
 - (EXCUser *)getUserWithJsonData:(NSData *)jsonData error:(NSError *)err {
     NSDictionary *userDictionary = [NSJSONSerialization JSONObjectWithData: jsonData options:NSJSONReadingAllowFragments error:&err];
-    if (err) {
+    if (err)
         NSLog(@"failed to serialize into JSON: %@", err);
-    }
     NSMutableArray *tempSkills = nil;
     if (userDictionary[@"skills"] != (id)[NSNull null])
         tempSkills = [NSMutableArray arrayWithArray:[userDictionary[@"skills"] componentsSeparatedByString:@";"]];
@@ -140,12 +139,11 @@
     return user;
 }
 
-/* Returns the array of users */
+/* Returns an array of users */
 - (NSMutableArray *)getUsersWithJsonData:(NSData *)jsonData error:(NSError *)err {
     NSArray *userDictionary = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingAllowFragments error:&err];
-    if (err) {
+    if (err)
         NSLog(@"failed to serialize into JSON: %@", err);
-    }
     NSMutableArray *users = [[NSMutableArray alloc] init];
     for (NSDictionary *userJson in userDictionary) {
         NSMutableArray *tempSkills = nil;

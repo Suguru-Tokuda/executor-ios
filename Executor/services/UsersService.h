@@ -24,6 +24,7 @@
 - (NSMutableURLRequest *)confirmUserRequestWithEmail:(NSString *)email;
 - (NSMutableURLRequest *)archiveUserRequestWithUserId:(long)userId;
 - (NSMutableURLRequest *)getUserRequestWithEmail:(NSString *)email;
+
 - (EXCUser *)getUserWithJsonData:(NSData *)jsonData error:(NSError *)err;
 - (NSMutableArray *)getUsersWithJsonData:(NSData *)jsonData error:(NSError *)err;
 

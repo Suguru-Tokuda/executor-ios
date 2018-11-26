@@ -19,6 +19,9 @@
 - (NSMutableURLRequest *)getProjectsRequestWithProjectId:(NSString *)projectId;
 - (NSMutableURLRequest *)createProjectRequestWithUserId:(NSString *)userId project:(EXCProject *)project;
 - (NSMutableURLRequest *)deleteProjectRequestWithProjectId:(NSString *)projectId;
-- (NSMutableURLRequest *)updateProjectRequest;
+- (NSMutableURLRequest *)updateProjectRequestWithProject:(EXCProject *)project;
+
+- (EXCProject *)getProjectWithJsonData:(NSData *)jsonData error:(NSError *)err;
+- (NSMutableArray *)getProjectsWithJsonData:(NSData *)jsonData error:(NSError *)err;
 
 @end
