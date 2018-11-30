@@ -20,4 +20,6 @@
 - (NSMutableURLRequest *)updateTaskRequestWithTask:(EXCTask *)task;
 - (NSMutableURLRequest *)deleteTaskRequestwithTaskId:(NSString *) taskId;
 
+- (NSData *)getPostDataWithTask:(EXCTask *)task;
+
 @end

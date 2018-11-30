@@ -26,4 +26,6 @@
 
 + (EXCProject *)getProjectWithDictionary:(NSDictionary *)dictionary;
 
+- (NSData *)getPostDataWithProject:(EXCProject *)project;
+
 @end

@@ -47,7 +47,7 @@
     NSMutableURLRequest *req = [EXCMutableURLRequest requestWithURL:url];
     [req setHTTPMethod:@"POST"];
     [req setValue:@"application-json" forHTTPHeaderField:@"Content-Type"];
-    NSData *postData = [self getPostData:task];
+    NSData *postData = [self getPostDataWithTask:task];
     [req setHTTPBody:postData];
     return req;
 }
@@ -57,7 +57,7 @@
     NSMutableURLRequest *req = [EXCMutableURLRequest requestWithURL:url];
     [req setHTTPMethod:@"PATCH"];
     [req setValue:@"application-json" forHTTPHeaderField:@"Content-Type"];
-    NSData *postData = [self getPostData:task];
+    NSData *postData = [self getPostDataWithTask:task];
     [req setHTTPBody:postData];
     return req;
 }
@@ -71,7 +71,7 @@
 }
 /* End of request methods */
 
-- (NSData *)getPostData:(EXCTask *)task {
+- (NSData *)getPostDataWithTask:(EXCTask *)task {
     NSString *bodyString = [NSString stringWithFormat:@"taskName=%@&startDate=%@&endDate=%@&completed=%@&approved=%@&projecdtId=%@&userId=%@",
                             task.taskName,
                             task.startDate,

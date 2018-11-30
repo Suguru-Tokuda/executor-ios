@@ -41,14 +41,7 @@
     NSMutableURLRequest *req = [EXCMutableURLRequest requestWithURL:url];
     [req setHTTPMethod:@"POST"];
     [req setValue:@"application-json" forHTTPHeaderField:@"Content-Type"];
-    NSString *bodyString = [NSString stringWithFormat:@"projectName=%@&startDate=%@&endDate=%@&completed=%@&picture=%@",
-                            project.projectName,
-                            project.startDate,
-                            project.endDate,
-                            [NSString stringWithFormat:@"%d", (project.completed == true ? 1 : 0)],
-                            [NSString stringWithUTF8String:[project.picture bytes]]
-                            ];
-    NSData *postData = [bodyString dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:YES];
+    NSData *postData = [self getPostDataWithProject:project];
     [req setHTTPBody:postData];    
     return req;
 }
@@ -64,6 +57,16 @@
 - (NSMutableURLRequest *)updateProjectRequestWithProject:(EXCProject *)project {
     NSURL *url = [NSURL URLWithString:self.endPoint];
     NSMutableURLRequest *req = [EXCMutableURLRequest requestWithURL:url];
+    NSData *postData = [self getPostDataWithProject:project];
+    [req setHTTPBody:postData];
+    [req setHTTPMethod:@"PATCH"];
+    [req setValue:@"application-json" forHTTPHeaderField:@"Content-Type"];
+    return req;
+}
+/* End of request methods */
+
+/* Returns post data */
+- (NSData *)getPostDataWithProject:(EXCProject *)project {
     NSString *bodyString = [NSString stringWithFormat:@"projectId=%@&projectName=%@&startDate=%@&endDate=%@&completed=%@&picture=%@",
                             [NSString stringWithFormat:@"%ld", project.projectId],
                             project.projectName,
@@ -73,12 +76,9 @@
                             (project.picture == nil ? [NSNull null] : [NSString stringWithUTF8String:[project.picture bytes]])
                             ];
     NSData *postData = [bodyString dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:YES];
-    [req setHTTPBody:postData];
-    [req setHTTPMethod:@"PATCH"];
-    return req;
+    return postData;
 }
 
-/* End of request methods */
 
 /* Returns a project object */
 - (EXCProject *)getProjectWithJsonData:(NSData *)jsonData error:(NSError *)err {
