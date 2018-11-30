@@ -42,21 +42,7 @@
     NSURL *url = [NSURL URLWithString:requestString];
     NSMutableURLRequest *req = [NSMutableURLRequest requestWithURL:url];
     [req setHTTPMethod:@"POST"];
-    NSString *skills = @"";
-    for (NSString *skill in user.skills)
-        skills = [NSString stringWithFormat: @"%@%@", skills, skill];
-    NSString *bodyString = [NSString stringWithFormat:@"firstName=%@&lastName=%@&email=%@&username=%@&password=%@&skills=%@&picture%@&archived=%@&confirmed=%@",
-                            user.firstName,
-                            user.lastName,
-                            user.email,
-                            user.username,
-                            user.password,
-                            skills,
-                            [NSString stringWithUTF8String:[user.picture bytes]],
-                            [NSString stringWithFormat:@"%d", (user.archived == true ? 1 : 0)],
-                            [NSString stringWithFormat:@"%d", (user.confirmed == true ? 1 : 0)]
-                            ];
-    NSData *postData = [bodyString dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:YES];
+    NSData *postData = [self getPostDataWithUser:user];
     [req setHTTPBody:postData];
     return req;
 }
@@ -67,6 +53,8 @@
     NSMutableURLRequest *req = [NSMutableURLRequest requestWithURL:url];
     [req setHTTPMethod:@"PATCH"];
     [req setValue:user forKey:@"user"];
+    NSData *postData = [self getPostDataWithUser:user];
+    [req setHTTPBody:postData];
     return req;
 }
 
@@ -118,6 +106,25 @@
 
 /* End of request methods */
 
+/* Returns the post data */
+- (NSData *)getPostDataWithUser:(EXCUser *) user {
+    NSString *skills = @"";
+    for (NSString *skill in user.skills)
+        skills = [NSString stringWithFormat: @"%@%@", skills, skill];
+    NSString *bodyString = [NSString stringWithFormat:@"firstName=%@&lastName=%@&email=%@&username=%@&password=%@&skills=%@&picture%@&archived=%@&confirmed=%@",
+                            user.firstName,
+                            user.lastName,
+                            user.email,
+                            user.username,
+                            user.password,
+                            skills,
+                            [NSString stringWithUTF8String:[user.picture bytes]],
+                            [NSString stringWithFormat:@"%d", (user.archived == true ? 1 : 0)],
+                            [NSString stringWithFormat:@"%d", (user.confirmed == true ? 1 : 0)]
+                            ];
+    NSData *postData = [bodyString dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:YES];
+    return postData;
+}
 
 /* This method returns a user object */
 - (EXCUser *)getUserWithJsonData:(NSData *)jsonData error:(NSError *)err {
@@ -136,6 +143,11 @@
                                          skills:tempSkills
                                         picture:picture
                                            role:userDictionary[@"role"]];
+    NSArray *projects = userDictionary[@"projects"];
+    for (NSDictionary *projectJSON in projects) {
+        EXCProject *project = [ProjectService getProjectWithDictionary:projectJSON];
+        [user.projects addObject:project];
+    }
     return user;
 }
 

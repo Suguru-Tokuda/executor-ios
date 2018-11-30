@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "EXCTask.h"
+#import "AccountInfoService.h"
 
 @interface TaskService : NSObject
 
@@ -15,8 +16,8 @@
 
 - (NSMutableURLRequest *)getTasksRequestWithProjectId:(NSString *)projectId userId:(NSString *)userId;
 - (NSMutableURLRequest *)getTaskRequestWithTaskId:(NSString *)taskId;
-- (NSMutableURLRequest *)createTaskRequestWithUserId:(NSString *) userId projectId:(NSString *)projectId;
-- (NSMutableURLRequest *)updateTaskRequestWithTask:(EXCTask *) task;
+- (NSMutableURLRequest *)createTaskRequestWithTask:(EXCTask *)task;
+- (NSMutableURLRequest *)updateTaskRequestWithTask:(EXCTask *)task;
 - (NSMutableURLRequest *)deleteTaskRequestwithTaskId:(NSString *) taskId;
 
 @end

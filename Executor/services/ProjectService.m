@@ -40,6 +40,7 @@
     NSURL *url = [NSURL URLWithString:requestString];
     NSMutableURLRequest *req = [EXCMutableURLRequest requestWithURL:url];
     [req setHTTPMethod:@"POST"];
+    [req setValue:@"application-json" forHTTPHeaderField:@"Content-Type"];
     NSString *bodyString = [NSString stringWithFormat:@"projectName=%@&startDate=%@&endDate=%@&completed=%@&picture=%@",
                             project.projectName,
                             project.startDate,
@@ -84,14 +85,7 @@
     NSDictionary *projectDictionary = [NSJSONSerialization JSONObjectWithData: jsonData options:NSJSONReadingAllowFragments error:&err];
     if (err)
         NSLog(@"Failed to serialize into JSON: %@", err);
-    NSData *picture = (projectDictionary[@"picture"] == (id)[NSNull null] ? nil : [projectDictionary[@"picture"] dataUsingEncoding:NSUTF8StringEncoding]);
-    EXCProject *project = [[EXCProject alloc] initWithId:[projectDictionary[@"projejctId"] longValue]
-                                             projectName:projectDictionary[@"projectName"]
-                                               startDate:projectDictionary[@"startData"]
-                                                 endDate:projectDictionary[@"endDate"]
-                                                 picture:picture
-                                                   tasks:nil
-                                               completed:([projectDictionary[@"completed"] isEqualToString:@"1"] ? true : false)];
+    EXCProject *project = [ProjectService getProjectWithDictionary:projectDictionary];
     return project;
 }
 
@@ -102,17 +96,23 @@
         NSLog(@"failed to serialize into JSON: %@", err);
     NSMutableArray *projects = [[NSMutableArray alloc] init];
     for (NSDictionary *projectJSON in projectDictionary) {
-        NSData *picture = (projectJSON[@"picture"] == (id)[NSNull null] ? nil : [projectJSON[@"picture"] dataUsingEncoding:NSUTF8StringEncoding]);
-        EXCProject *project = [[EXCProject alloc] initWithId:[projectJSON[@"projejctId"] longValue]
-                                                 projectName:projectJSON[@"projectName"]
-                                                   startDate:projectJSON[@"startData"]
-                                                     endDate:projectJSON[@"endDate"]
-                                                     picture:picture
-                                                       tasks:nil
-                                                   completed:([projectJSON[@"completed"] isEqualToString:@"1"] ? true : false)];
+        EXCProject *project = [ProjectService getProjectWithDictionary:projectJSON];
         [projects addObject:project];
     }
     return projects;
+}
+
+/* A class method that returns EXCProject object for the parameter dictionary */
++ (EXCProject *)getProjectWithDictionary:(NSDictionary *)dictionary {
+    NSData *picture = (dictionary[@"picture"] == (id)[NSNull null] ? nil : [dictionary[@"picture"] dataUsingEncoding:NSUTF8StringEncoding]);
+    EXCProject *project = [[EXCProject alloc] initWithId:[dictionary[@"projejctId"] longValue]
+                                             projectName:dictionary[@"projectName"]
+                                               startDate:dictionary[@"startData"]
+                                                 endDate:dictionary[@"endDate"]
+                                                 picture:picture
+                                                   tasks:nil
+                                               completed:([dictionary[@"completed"] isEqualToString:@"1"] ? true : false)];
+    return project;
 }
 
 @end

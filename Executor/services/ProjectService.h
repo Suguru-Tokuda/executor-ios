@@ -24,4 +24,6 @@
 - (EXCProject *)getProjectWithJsonData:(NSData *)jsonData error:(NSError *)err;
 - (NSMutableArray *)getProjectsWithJsonData:(NSData *)jsonData error:(NSError *)err;
 
++ (EXCProject *)getProjectWithDictionary:(NSDictionary *)dictionary;
+
 @end
