@@ -143,11 +143,17 @@
                                          skills:tempSkills
                                         picture:picture
                                            role:userDictionary[@"role"]];
-    NSArray *projects = userDictionary[@"projects"];
-    for (NSDictionary *projectJSON in projects) {
-        EXCProject *project = [ProjectService getProjectWithDictionary:projectJSON];
-        [user.projects addObject:project];
+    if ([userDictionary[@"projects"] length] > 0) {
+        NSArray *projects = userDictionary[@"projects"];
+        for (NSDictionary *projectJSON in projects) {
+            EXCProject *project = [ProjectService getProjectWithDictionary:projectJSON];
+            [user.projects addObject:project];
+        }
+    } else {
+        user.projects = [[NSMutableArray alloc] init];
     }
+    
+    
     return user;
 }
 

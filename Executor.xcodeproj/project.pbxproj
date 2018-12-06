@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		7FBA7DD421A5ABF200759877 /* EXCMutableURLRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FBA7DD321A5ABF200759877 /* EXCMutableURLRequest.m */; };
+		BB5FE1F121B8D3ED0090BA3A /* EXCAuthority.m in Sources */ = {isa = PBXBuildFile; fileRef = BB5FE1F021B8D3ED0090BA3A /* EXCAuthority.m */; };
 		BB6EC2F421A25E6F0054239C /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BB6EC2F321A25E6F0054239C /* AppDelegate.m */; };
 		BB6EC2F721A25E6F0054239C /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BB6EC2F621A25E6F0054239C /* ViewController.m */; };
 		BB6EC2FA21A25E6F0054239C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BB6EC2F821A25E6F0054239C /* Main.storyboard */; };
@@ -46,6 +47,8 @@
 /* Begin PBXFileReference section */
 		7FBA7DD221A5ABF200759877 /* EXCMutableURLRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EXCMutableURLRequest.h; sourceTree = "<group>"; };
 		7FBA7DD321A5ABF200759877 /* EXCMutableURLRequest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EXCMutableURLRequest.m; sourceTree = "<group>"; };
+		BB5FE1EF21B8D3ED0090BA3A /* EXCAuthority.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EXCAuthority.h; sourceTree = "<group>"; };
+		BB5FE1F021B8D3ED0090BA3A /* EXCAuthority.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EXCAuthority.m; sourceTree = "<group>"; };
 		BB6EC2EF21A25E6F0054239C /* Executor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Executor.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BB6EC2F221A25E6F0054239C /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		BB6EC2F321A25E6F0054239C /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -205,6 +208,8 @@
 				BB6EC33621A270030054239C /* EXCTask.m */,
 				BBEB3CAC21A3AFD40087B7D5 /* EXCReview.h */,
 				BBEB3CAD21A3AFD40087B7D5 /* EXCReview.m */,
+				BB5FE1EF21B8D3ED0090BA3A /* EXCAuthority.h */,
+				BB5FE1F021B8D3ED0090BA3A /* EXCAuthority.m */,
 			);
 			path = models;
 			sourceTree = "<group>";
@@ -343,6 +348,7 @@
 				BB6EC2F721A25E6F0054239C /* ViewController.m in Sources */,
 				BB6EC32821A262420054239C /* AccountInfoService.m in Sources */,
 				BBEB3CAE21A3AFD40087B7D5 /* EXCReview.m in Sources */,
+				BB5FE1F121B8D3ED0090BA3A /* EXCAuthority.m in Sources */,
 				BBB8E8B621A65482001B327F /* ProjectService.m in Sources */,
 				BB6EC33121A26BDD0054239C /* EXCUser.m in Sources */,
 				BB6EC32C21A269990054239C /* UsersService.m in Sources */,
