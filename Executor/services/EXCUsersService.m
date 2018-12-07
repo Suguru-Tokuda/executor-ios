@@ -6,10 +6,9 @@
 //  Copyright © 2018 Executor. All rights reserved.
 //
 
-#import "UsersService.h"
-#import "AccountInfoService.h"
+#import "EXCUsersService.h"
 
-@implementation UsersService
+@implementation EXCUsersService
 
 - (instancetype) init {
     self = [super init];
@@ -135,7 +134,7 @@
     if (userDictionary[@"skills"] != (id)[NSNull null])
         tempSkills = [NSMutableArray arrayWithArray:[userDictionary[@"skills"] componentsSeparatedByString:@";"]];
     NSData *picture = (userDictionary[@"picture"] == (id)[NSNull null] ? nil : [userDictionary[@"picture"] dataUsingEncoding:NSUTF8StringEncoding]);
-    EXCUser *user = [[EXCUser alloc] initWithId:[userDictionary[@"userId"] longValue]
+    EXCUser *user = [[EXCUser alloc] initWithUserId:[userDictionary[@"userId"] longValue]
                                       firstName:userDictionary[@"firstName"]
                                        lastName:userDictionary[@"lastName"]
                                           email:userDictionary[@"email"]
@@ -146,13 +145,22 @@
     if ([userDictionary[@"projects"] length] > 0) {
         NSArray *projects = userDictionary[@"projects"];
         for (NSDictionary *projectJSON in projects) {
-            EXCProject *project = [ProjectService getProjectWithDictionary:projectJSON];
+            EXCProject *project = [EXCProjectService getProjectWithDictionary:projectJSON];
             [user.projects addObject:project];
         }
     } else {
         user.projects = [[NSMutableArray alloc] init];
     }
     
+    if ([userDictionary[@"tasks"] length] > 0) {
+        NSArray *tasks = userDictionary[@"tasks"];
+        for (NSDictionary *taskJSON in tasks) {
+            EXCTask *task = [EXCTaskService getTaskWithDictionary:taskJSON];
+            [user.tasks addObject:task];
+        }
+    } else {
+        user.tasks = [[NSMutableArray alloc] init];
+    }
     
     return user;
 }
@@ -168,7 +176,7 @@
         if (userJson[@"skills"] != (id)[NSNull null])
             tempSkills = [NSMutableArray arrayWithArray:[userJson[@"skills"] componentsSeparatedByString:@";"]];
         NSData *picture = (userJson[@"picture"] == (id)[NSNull null] ? nil : [userJson[@"picture"] dataUsingEncoding:NSUTF8StringEncoding]);
-        EXCUser *user = [[EXCUser alloc] initWithId:[userJson[@"userId"] longValue]
+        EXCUser *user = [[EXCUser alloc] initWithUserId:[userJson[@"userId"] longValue]
                                           firstName:userJson[@"firstName"]
                                            lastName:userJson[@"lastName"]
                                               email:userJson[@"email"]

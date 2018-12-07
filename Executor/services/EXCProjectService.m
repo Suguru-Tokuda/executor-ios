@@ -6,9 +6,9 @@
 //  Copyright © 2018 Executor. All rights reserved.
 //
 
-#import "ProjectService.h"
+#import "EXCProjectService.h"
 
-@implementation ProjectService
+@implementation EXCProjectService
 
 - (instancetype)init {
     self = [super init];
@@ -85,7 +85,7 @@
     NSDictionary *projectDictionary = [NSJSONSerialization JSONObjectWithData: jsonData options:NSJSONReadingAllowFragments error:&err];
     if (err)
         NSLog(@"Failed to serialize into JSON: %@", err);
-    EXCProject *project = [ProjectService getProjectWithDictionary:projectDictionary];
+    EXCProject *project = [EXCProjectService getProjectWithDictionary:projectDictionary];
     return project;
 }
 
@@ -96,7 +96,7 @@
         NSLog(@"failed to serialize into JSON: %@", err);
     NSMutableArray *projects = [[NSMutableArray alloc] init];
     for (NSDictionary *projectJSON in projectDictionary) {
-        EXCProject *project = [ProjectService getProjectWithDictionary:projectJSON];
+        EXCProject *project = [EXCProjectService getProjectWithDictionary:projectJSON];
         [projects addObject:project];
     }
     return projects;
@@ -105,13 +105,13 @@
 /* A class method that returns EXCProject object for the parameter dictionary */
 + (EXCProject *)getProjectWithDictionary:(NSDictionary *)dictionary {
     NSData *picture = (dictionary[@"picture"] == (id)[NSNull null] ? nil : [dictionary[@"picture"] dataUsingEncoding:NSUTF8StringEncoding]);
-    EXCProject *project = [[EXCProject alloc] initWithId:[dictionary[@"projejctId"] longValue]
+    EXCProject *project = [[EXCProject alloc] initWithTaskId:[dictionary[@"projejctId"] longValue]
                                              projectName:dictionary[@"projectName"]
                                                startDate:dictionary[@"startData"]
                                                  endDate:dictionary[@"endDate"]
                                                  picture:picture
                                                    tasks:nil
-                                               completed:([dictionary[@"completed"] isEqualToString:@"1"] ? true : false)];
+                                               completed:((int)dictionary[@"completed"] == 1 ? true : false)];
     return project;
 }
 

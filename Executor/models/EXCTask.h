@@ -10,7 +10,7 @@
 
 @interface EXCTask : NSObject
 
-@property (nonatomic) NSString *taskId;
+@property (nonatomic) long taskId;
 @property (nonatomic) NSString *taskName;
 @property (nonatomic) NSDate *startDate;
 @property (nonatomic) NSDate *endDate;
@@ -21,6 +21,6 @@
 @property (nonatomic) NSString *userId;
 
 - (instancetype)initWithName:(NSString *)taskName;
-- (instancetype)initWithId:(NSString *)taskId taskName:(NSString *)taskName startDate:(NSDate *)startDate endDate:(NSDate *)endDate completed: (Boolean)completed approved: (Boolean)approved;
+- (instancetype)initWithTaskId:(long)taskId taskName:(NSString *)taskName startDate:(NSDate *)startDate endDate:(NSDate *)endDate completed: (Boolean)completed approved: (Boolean)approved;
 
 @end

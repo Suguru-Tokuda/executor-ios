@@ -19,6 +19,6 @@
 @property (nonatomic) Boolean completed;
 
 - (instancetype)initWithName:(NSString *)projectName;
-- (instancetype)initWithId:(long)projectId projectName:(NSString *)projectName startDate:(NSDate *)startDate endDate:(NSDate *)endDate picture:(NSData *)picture tasks:(NSMutableArray *)tasks completed:(Boolean)completed;
+- (instancetype)initWithTaskId:(long)projectId projectName:(NSString *)projectName startDate:(NSDate *)startDate endDate:(NSDate *)endDate picture:(NSData *)picture tasks:(NSMutableArray *)tasks completed:(Boolean)completed;
 
 @end

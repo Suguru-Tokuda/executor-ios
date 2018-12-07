@@ -8,11 +8,14 @@
 
 #import <Foundation/Foundation.h>
 #import "EXCUser.h"
-#import "AccountInfoService.h"
-#import "ProjectService.h"
+#import "EXCProject.h"
+#import "EXCTask.h"
+#import "EXCAccountInfoService.h"
+#import "EXCProjectService.h"
+#import "EXCTaskService.h"
 #import "EXCMutableURLRequest.h"
 
-@interface UsersService : NSObject
+@interface EXCUsersService : NSObject
 
 @property (nonatomic) NSString *endPoint;
 

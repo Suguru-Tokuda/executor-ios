@@ -7,11 +7,11 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "AccountInfoService.h"
+#import "EXCAccountInfoService.h"
 #import "EXCMutableURLRequest.h"
 #import "EXCProject.h"
 
-@interface ProjectService : NSObject
+@interface EXCProjectService : NSObject
 
 @property (nonatomic) NSString *endPoint;
 

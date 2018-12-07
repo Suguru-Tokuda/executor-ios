@@ -8,9 +8,9 @@
 
 #import <Foundation/Foundation.h>
 #import "EXCTask.h"
-#import "AccountInfoService.h"
+#import "EXCAccountInfoService.h"
 
-@interface TaskService : NSObject
+@interface EXCTaskService : NSObject
 
 @property (nonatomic) NSString *endPoint;
 
@@ -21,5 +21,7 @@
 - (NSMutableURLRequest *)deleteTaskRequestwithTaskId:(NSString *) taskId;
 
 - (NSData *)getPostDataWithTask:(EXCTask *)task;
+
++ (EXCTask *)getTaskWithDictionary:(NSDictionary *)dictioinary;
 
 @end

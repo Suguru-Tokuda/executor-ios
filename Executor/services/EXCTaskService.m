@@ -6,9 +6,9 @@
 //  Copyright © 2018 Executor. All rights reserved.
 //
 
-#import "TaskService.h"
+#import "EXCTaskService.h"
 
-@implementation TaskService
+@implementation EXCTaskService
 
 - (instancetype)init {
     self = [super init];
@@ -83,6 +83,16 @@
                             ];
     NSData *postData = [bodyString dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:YES];
     return postData;
+}
+
++ (EXCTask *)getTaskWithDictionary:(NSDictionary *)dictionary {
+    EXCTask *task = [[EXCTask alloc] initWithTaskId:[dictionary[@"taskId"] longValue]
+                                     taskName:dictionary[@"taskName"]
+                                    startDate:dictionary[@"startDate"]
+                                      endDate:dictionary[@"endDate"]
+                                    completed:((int)dictionary[@"completed"] == 1 ? true : false)
+                                     approved:((int)dictionary[@"approved"] == 1 ? true : false)];
+    return task;
 }
 
 @end

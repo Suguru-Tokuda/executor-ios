@@ -10,7 +10,7 @@
 #import "AppDelegate.h"
 #import "EXCMutableURLRequest.h"
 
-@interface AccountInfoService : NSObject
+@interface EXCAccountInfoService : NSObject
 
 extern NSString *const BASE_URL;
 

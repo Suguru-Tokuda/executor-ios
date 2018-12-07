@@ -16,7 +16,6 @@
 @property (nonatomic) NSDate *postDate;
 
 - (instancetype)initWithReviewId:(NSString *)reviewId title:(NSString *)title reviewDescription:(NSString *)reviewDescription postDate:(NSDate *)postDate;
-
 - (instancetype)initWithTitle:(NSString *)title reviewDescription:(NSString *)reviewDescription postDate:(NSDate *)postDate;
 
 @end

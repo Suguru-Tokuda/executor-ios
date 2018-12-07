@@ -19,7 +19,7 @@
     return self;
 }
 
-- (instancetype)initWithId:(long)userId firstName:(NSString *)firstName lastName:(NSString *)lastName email:(NSString *)email username:(NSString *)username skills:(NSMutableArray *)skills picture:(NSData *)picture role:(NSString *)role {
+- (instancetype)initWithUserId:(long)userId firstName:(NSString *)firstName lastName:(NSString *)lastName email:(NSString *)email username:(NSString *)username skills:(NSMutableArray *)skills picture:(NSData *)picture role:(NSString *)role {
     self = [super init];
     self.userId = userId;
     self.firstName = firstName;
