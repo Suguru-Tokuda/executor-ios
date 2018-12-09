@@ -17,8 +17,8 @@
 }
 
 /* Beginning of request methods */
-- (NSMutableURLRequest *)getUserRequest:(NSString *)userId {
-    NSString *requestString = [NSString stringWithFormat:@"%@%@", self.endPoint, userId];
+- (NSMutableURLRequest *)getUserRequest:(long)userId {
+    NSString *requestString = [NSString stringWithFormat:@"%@/%ld", self.endPoint, userId];
     NSURL *url = [NSURL URLWithString:requestString];
     NSMutableURLRequest *req = [EXCMutableURLRequest requestWithURL:url];
     [req setValue:@"application-json" forHTTPHeaderField:@"Accept"];
@@ -105,23 +105,21 @@
 
 /* End of request methods */
 
+// -MARK: Post data method
 /* Returns the post data */
-- (NSData *)getPostDataWithUser:(EXCUser *) user {
+- (NSData *)getPostDataWithUser:(EXCUser *)user {
     NSString *skills = @"";
-    for (NSString *skill in user.skills)
-        skills = [NSString stringWithFormat: @"%@%@", skills, skill];
-    NSString *bodyString = [NSString stringWithFormat:@"firstName=%@&lastName=%@&email=%@&username=%@&password=%@&skills=%@&picture%@&archived=%@&confirmed=%@",
-                            user.firstName,
-                            user.lastName,
-                            user.email,
-                            user.username,
-                            user.password,
-                            skills,
-                            [NSString stringWithUTF8String:[user.picture bytes]],
-                            [NSString stringWithFormat:@"%d", (user.archived == true ? 1 : 0)],
-                            [NSString stringWithFormat:@"%d", (user.confirmed == true ? 1 : 0)]
-                            ];
-    NSData *postData = [bodyString dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:YES];
+    if (sizeof(skills) > 0) {
+        for (NSString *skill in user.skills)
+            skills = [NSString stringWithFormat: @"%@%@", skills, skill];
+    }
+    NSDictionary *jsonBodyDictionary = @{@"firstName":user.firstName, @"lastName":user.lastName, @"email":user.email, @"username":user.username, @"skills":skills, @"picture":[NSString stringWithUTF8String:[user.picture bytes]], @"archived":[NSString stringWithFormat:@"%d", (user.archived == true ? 1 : 0)], @"confirmed":[NSString stringWithFormat:@"%d", (user.confirmed == true ? 1 : 0)]};;
+    if (user.userId != 0) {
+        [jsonBodyDictionary setValue:[NSString stringWithFormat:@"%ld", user.userId] forKey:@"userId"];
+    } else {
+        [jsonBodyDictionary setValue:user.password forKey:@"password"];
+    }
+    NSData *postData = [NSJSONSerialization dataWithJSONObject:jsonBodyDictionary options:kNilOptions error:nil];
     return postData;
 }
 

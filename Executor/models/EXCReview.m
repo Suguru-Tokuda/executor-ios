@@ -10,7 +10,7 @@
 
 @implementation EXCReview
 
-- (instancetype)initWithReviewId:(NSString *)reviewId title:(NSString *)title reviewDescription:(NSString *)reviewDescription postDate:(NSDate *)postDate {
+- (instancetype)initWithReviewId:(long)reviewId title:(NSString *)title reviewDescription:(NSString *)reviewDescription postDate:(NSDate *)postDate {
     self = [super init];
     self.reviewId = reviewId;
     self.title = title;

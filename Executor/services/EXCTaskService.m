@@ -17,24 +17,24 @@
 }
 
 /* Beginning of request methods */
-- (NSMutableURLRequest *)getTasksRequestWithProjectId:(NSString *)projectId userId:(NSString *)userId {
+- (NSMutableURLRequest *)getTasksRequestWithProjectId:(long)projectId userId:(long)userId {
     NSURL *url = [NSURL URLWithString:self.endPoint];
     NSMutableURLRequest *req = [EXCMutableURLRequest requestWithURL:url];
     [req setHTTPMethod:@"GET"];
     NSString *bodyString = @"";
-    if (projectId != nil)
-        bodyString = [NSString stringWithFormat:@"projectId=%@", projectId];
-    if (userId != nil)
-        bodyString = [NSString stringWithFormat:@"%@&userId=%@", bodyString, userId];
-    if (projectId != nil || userId != nil) {
+    if (projectId != 0)
+        bodyString = [NSString stringWithFormat:@"projectId=%ld", projectId];
+    if (userId != 0)
+        bodyString = [NSString stringWithFormat:@"%@&userId=%ld", bodyString, userId];
+    if (projectId != 0 || userId != 0) {
         NSData *postData = [bodyString dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:YES];
         [req setHTTPBody:postData];
     }
     return req;
 }
 
-- (NSMutableURLRequest *)getTaskRequestWithTaskId:(NSString *)taskId {
-    NSString *requestString = [NSString stringWithFormat:@"%@%@%@", _endPoint, @"/", taskId];
+- (NSMutableURLRequest *)getTaskRequestWithTaskId:(long)taskId {
+    NSString *requestString = [NSString stringWithFormat:@"%@/%ld", _endPoint, taskId];
     NSURL *url = [NSURL URLWithString:requestString];
     NSMutableURLRequest *req = [EXCMutableURLRequest requestWithURL:url];
     [req setHTTPMethod:@"GET"];
@@ -62,8 +62,8 @@
     return req;
 }
 
-- (NSMutableURLRequest *)deleteTaskRequestwithTaskId:(NSString *) taskId {
-    NSString *requestString = [NSString stringWithFormat:@"%@%@%@", _endPoint, @"/", taskId];
+- (NSMutableURLRequest *)deleteTaskRequestwithTaskId:(long) taskId {
+    NSString *requestString = [NSString stringWithFormat:@"%@/%ld", _endPoint, taskId];
     NSURL *url = [NSURL URLWithString:requestString];
     NSMutableURLRequest *req = [EXCMutableURLRequest requestWithURL:url];
     [req setHTTPMethod:@"DELETE"];
@@ -71,17 +71,24 @@
 }
 /* End of request methods */
 
+// -MARK: Post Data method
 - (NSData *)getPostDataWithTask:(EXCTask *)task {
-    NSString *bodyString = [NSString stringWithFormat:@"taskName=%@&startDate=%@&endDate=%@&completed=%@&approved=%@&projecdtId=%@&userId=%@",
-                            task.taskName,
-                            task.startDate,
-                            task.endDate,
-                            [NSString stringWithFormat:@"%d", (task.completed == true ? 1: 0)],
-                            [NSString stringWithFormat:@"%d", (task.approved == true ? 1: 0)],
-                            (task.projectId == nil ? [NSNull null] : task.projectId),
-                            (task.userId == nil ? [NSNull null] : task.userId)
-                            ];
-    NSData *postData = [bodyString dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:YES];
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    dateFormatter.timeZone = [NSTimeZone systemTimeZone];
+    dateFormatter.dateFormat = @"yyyy-MM-dd HH:mm:ss";
+    NSDictionary *jsonBodyDictionary = @{
+                                         @"taskName":task.taskName,
+                                         @"startDate":[dateFormatter stringFromDate:task.startDate],
+                                         @"endDate":[dateFormatter stringFromDate:task.endDate],
+                                         @"completed":[NSString stringWithFormat:@"%d", (task.completed == true ? 1: 0)],
+                                         @"approved":[NSString stringWithFormat:@"%d", (task.approved == true ? 1: 0)],
+                                         @"projectId":(task.projectId == nil ? [NSNull null] : task.projectId),
+                                         @"userId":(task.userId == nil ? [NSNull null] : task.userId)
+                                         };
+    if (task.taskId != 0) {
+        [jsonBodyDictionary setValue:[NSString stringWithFormat:@"%ld", task.taskId] forKey:@"taskId"];
+    }
+    NSData *postData = [NSJSONSerialization dataWithJSONObject:jsonBodyDictionary options:kNilOptions error:nil];
     return postData;
 }
 

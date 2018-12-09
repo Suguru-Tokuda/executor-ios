@@ -19,7 +19,7 @@
 
 @property (nonatomic) NSString *endPoint;
 
-- (NSMutableURLRequest *)getUserRequest:(NSString *)userId;
+- (NSMutableURLRequest *)getUserRequest:(long)userId;
 - (NSMutableURLRequest *)getUsersRequestWithEmail:(NSString *)email firstName:(NSString *)firstName lastName:(NSString *)lastName skills:(NSString *)skills;
 - (NSMutableURLRequest *)getUserAvailabilityRequestWithEmail:(NSString *)email;
 - (NSMutableURLRequest *)createUserRequestWithUser:(EXCUser *)user;

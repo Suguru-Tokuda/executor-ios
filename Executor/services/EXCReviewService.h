@@ -7,11 +7,19 @@
 //
 
 #import <Foundation/Foundation.h>
-
-NS_ASSUME_NONNULL_BEGIN
+#import "EXCReview.h"
+#import "EXCAccountInfoService.h"
 
 @interface EXCReviewService : NSObject
 
-@end
+@property (nonatomic) NSString *endPoint;
 
-NS_ASSUME_NONNULL_END
+- (NSMutableURLRequest *)getReviewsRequestWithUserId:(long)userId projectId:(long)projectId reviewerId:(long) reviewerId;
+- (NSMutableURLRequest *)getReviewRequestWithReviewId:(long)reviewId;
+- (NSMutableURLRequest *)createReviewRequestWithReview:(EXCReview *)review;
+- (NSMutableURLRequest *)updateReviewRequestWithReview:(EXCReview *)review;
+- (NSMutableURLRequest *)deleteReviewRequestWithReviewId:(long)reviewId;
+- (NSData *)getReviewPostDataWithReview:(EXCReview *)review;
+
+
+@end

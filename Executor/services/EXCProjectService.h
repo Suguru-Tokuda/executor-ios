@@ -15,10 +15,10 @@
 
 @property (nonatomic) NSString *endPoint;
 
-- (NSMutableURLRequest *)getProjectsRequestWithUserId:(NSString *)userId;
-- (NSMutableURLRequest *)getProjectsRequestWithProjectId:(NSString *)projectId;
-- (NSMutableURLRequest *)createProjectRequestWithUserId:(NSString *)userId project:(EXCProject *)project;
-- (NSMutableURLRequest *)deleteProjectRequestWithProjectId:(NSString *)projectId;
+- (NSMutableURLRequest *)getProjectsRequestWithUserId:(long)userId;
+- (NSMutableURLRequest *)getProjectsRequestWithProjectId:(long)projectId;
+- (NSMutableURLRequest *)createProjectRequestWithUserId:(long)userId project:(EXCProject *)project;
+- (NSMutableURLRequest *)deleteProjectRequestWithProjectId:(long)projectId;
 - (NSMutableURLRequest *)updateProjectRequestWithProject:(EXCProject *)project;
 
 - (EXCProject *)getProjectWithJsonData:(NSData *)jsonData error:(NSError *)err;

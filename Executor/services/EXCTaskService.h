@@ -14,11 +14,11 @@
 
 @property (nonatomic) NSString *endPoint;
 
-- (NSMutableURLRequest *)getTasksRequestWithProjectId:(NSString *)projectId userId:(NSString *)userId;
-- (NSMutableURLRequest *)getTaskRequestWithTaskId:(NSString *)taskId;
+- (NSMutableURLRequest *)getTasksRequestWithProjectId:(long)projectId userId:(long)userId;
+- (NSMutableURLRequest *)getTaskRequestWithTaskId:(long)taskId;
 - (NSMutableURLRequest *)createTaskRequestWithTask:(EXCTask *)task;
 - (NSMutableURLRequest *)updateTaskRequestWithTask:(EXCTask *)task;
-- (NSMutableURLRequest *)deleteTaskRequestwithTaskId:(NSString *) taskId;
+- (NSMutableURLRequest *)deleteTaskRequestwithTaskId:(long) taskId;
 
 - (NSData *)getPostDataWithTask:(EXCTask *)task;
 

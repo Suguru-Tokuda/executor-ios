@@ -16,9 +16,9 @@
     return self;
 }
 
-/* Beginning of request methods */
-- (NSMutableURLRequest *)getProjectsRequestWithUserId:(NSString *)userId {
-    NSString *requestString = [NSString stringWithFormat:@"%@%@", self.endPoint, (userId == nil ? @"" : [NSString stringWithFormat:@"%@%@", @"/", userId])];
+// -MARK: Request methods
+- (NSMutableURLRequest *)getProjectsRequestWithUserId:(long)userId {
+    NSString *requestString = [NSString stringWithFormat:@"%@%@", self.endPoint, (userId == 0 ? @"" : [NSString stringWithFormat:@"/%ld", userId])];
     NSURL *url = [NSURL URLWithString:requestString];
     NSMutableURLRequest *req = [EXCMutableURLRequest requestWithURL:url];
     [req setHTTPMethod:@"GET"];
@@ -26,8 +26,8 @@
     return req;
 }
 
-- (NSMutableURLRequest *)getProjectsRequestWithProjectId:(NSString *)projectId {
-    NSString *requestString = [NSString stringWithFormat:@"%@%@%@", self.endPoint, @"/", projectId];
+- (NSMutableURLRequest *)getProjectsRequestWithProjectId:(long)projectId {
+    NSString *requestString = [NSString stringWithFormat:@"%@/%ld", self.endPoint, projectId];
     NSURL *url = [NSURL URLWithString:requestString];
     NSMutableURLRequest *req = [EXCMutableURLRequest requestWithURL:url];
     [req setHTTPMethod:@"GET"];
@@ -35,8 +35,8 @@
     return req;
 }
 
-- (NSMutableURLRequest *)createProjectRequestWithUserId:(NSString *)userId  project:(EXCProject *)project {
-    NSString *requestString = [NSString stringWithFormat:@"%@%@%@", self.endPoint,  @"/", userId];
+- (NSMutableURLRequest *)createProjectRequestWithUserId:(long)userId  project:(EXCProject *)project {
+    NSString *requestString = [NSString stringWithFormat:@"%@/%ld", self.endPoint, userId];
     NSURL *url = [NSURL URLWithString:requestString];
     NSMutableURLRequest *req = [EXCMutableURLRequest requestWithURL:url];
     [req setHTTPMethod:@"POST"];
@@ -46,8 +46,8 @@
     return req;
 }
 
-- (NSMutableURLRequest *)deleteProjectRequestWithProjectId:(NSString *)projectId {
-    NSString *requestString = [NSString stringWithFormat:@"%@%@", self.endPoint, projectId];
+- (NSMutableURLRequest *)deleteProjectRequestWithProjectId:(long)projectId {
+    NSString *requestString = [NSString stringWithFormat:@"%@/%ld", self.endPoint, projectId];
     NSURL *url = [NSURL URLWithString:requestString];
     NSMutableURLRequest *req = [EXCMutableURLRequest requestWithURL:url];
     [req setHTTPMethod:@"DELETE"];
@@ -63,23 +63,26 @@
     [req setValue:@"application-json" forHTTPHeaderField:@"Content-Type"];
     return req;
 }
-/* End of request methods */
 
-/* Returns post data */
+// -MARK: Post data method
 - (NSData *)getPostDataWithProject:(EXCProject *)project {
-    NSString *bodyString = [NSString stringWithFormat:@"projectId=%@&projectName=%@&startDate=%@&endDate=%@&completed=%@&picture=%@",
-                            [NSString stringWithFormat:@"%ld", project.projectId],
-                            project.projectName,
-                            project.startDate,
-                            project.endDate,
-                            [NSString stringWithFormat:@"%d", (project.completed == true ? 1 : 0)],
-                            (project.picture == nil ? [NSNull null] : [NSString stringWithUTF8String:[project.picture bytes]])
-                            ];
-    NSData *postData = [bodyString dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:YES];
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    dateFormatter.timeZone = [NSTimeZone systemTimeZone];
+    dateFormatter.dateFormat = @"yyyy-MM-dd HH:mm:ss";
+    NSDictionary *jsonBodyDictionary = @{
+                                         @"projectName":project.projectName,
+                                         @"startDate":[dateFormatter stringFromDate:project.startDate],
+                                         @"endDate":[dateFormatter stringFromDate:project.endDate],
+                                         @"completed":[NSString stringWithFormat:@"%d", (project.completed == true ? 1 : 0)],
+                                         @"picture":(project.picture == nil ? [NSNull null] : [NSString stringWithUTF8String:[project.picture bytes]])};;
+    if (project.projectId != 0) {
+        [jsonBodyDictionary setValue:[NSString stringWithFormat:@"%ld", project.projectId] forKey:@"projectId"];
+    }
+   NSData *postData = [NSJSONSerialization dataWithJSONObject:jsonBodyDictionary options:kNilOptions error:nil];
     return postData;
 }
 
-
+// -MARK: JSON parser methods
 /* Returns a project object */
 - (EXCProject *)getProjectWithJsonData:(NSData *)jsonData error:(NSError *)err {
     NSDictionary *projectDictionary = [NSJSONSerialization JSONObjectWithData: jsonData options:NSJSONReadingAllowFragments error:&err];
