@@ -21,7 +21,6 @@
     NSString *requestString = [NSString stringWithFormat:@"%@/%ld", self.endPoint, userId];
     NSURL *url = [NSURL URLWithString:requestString];
     NSMutableURLRequest *req = [EXCMutableURLRequest requestWithURL:url];
-    [req setValue:@"application-json" forHTTPHeaderField:@"Accept"];
     return req;
 }
 
@@ -29,7 +28,6 @@
     NSString *requestString = [NSString stringWithFormat:@"%@", self.endPoint];
     NSURL *url = [NSURL URLWithString:requestString];
     NSMutableURLRequest *req = [EXCMutableURLRequest requestWithURL:url];
-    [req setValue:@"application-json" forHTTPHeaderField:@"Accept"];
     NSString *bodyString = [NSString stringWithFormat:@"email=%@&firstName=%@&lastName=%@&skills=%@", email, firstName, lastName, skills];
     NSData *postData = [bodyString dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:YES];
     [req setHTTPBody:postData];
@@ -62,7 +60,6 @@
     NSURL *url = [NSURL URLWithString:requestString];
     NSMutableURLRequest *req = [NSMutableURLRequest requestWithURL:url];
     [req setValue:email forKey:@"email"];
-    [req setValue:@"application-json" forHTTPHeaderField:@"Accept"];
     return req;
 }
 

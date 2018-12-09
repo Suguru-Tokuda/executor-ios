@@ -22,7 +22,6 @@
     NSURL *url = [NSURL URLWithString:requestString];
     NSMutableURLRequest *req = [EXCMutableURLRequest requestWithURL:url];
     [req setHTTPMethod:@"GET"];
-    [req setValue:@"application-json" forHTTPHeaderField:@"Accept"];
     return req;
 }
 
@@ -31,7 +30,6 @@
     NSURL *url = [NSURL URLWithString:requestString];
     NSMutableURLRequest *req = [EXCMutableURLRequest requestWithURL:url];
     [req setHTTPMethod:@"GET"];
-    [req setValue:@"application-json" forHTTPHeaderField:@"Accept"];
     return req;
 }
 
@@ -40,7 +38,6 @@
     NSURL *url = [NSURL URLWithString:requestString];
     NSMutableURLRequest *req = [EXCMutableURLRequest requestWithURL:url];
     [req setHTTPMethod:@"POST"];
-    [req setValue:@"application-json" forHTTPHeaderField:@"Content-Type"];
     NSData *postData = [self getPostDataWithProject:project];
     [req setHTTPBody:postData];    
     return req;
@@ -60,7 +57,6 @@
     NSData *postData = [self getPostDataWithProject:project];
     [req setHTTPBody:postData];
     [req setHTTPMethod:@"PATCH"];
-    [req setValue:@"application-json" forHTTPHeaderField:@"Content-Type"];
     return req;
 }
 
