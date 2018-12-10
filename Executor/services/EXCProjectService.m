@@ -103,11 +103,14 @@
 
 /* A class method that returns EXCProject object for the parameter dictionary */
 + (EXCProject *)getProjectWithDictionary:(NSDictionary *)dictionary {
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    dateFormatter.timeZone = [NSTimeZone systemTimeZone];
+    dateFormatter.dateFormat = @"yyyy-MM-dd HH:mm:ss";
     NSData *picture = (dictionary[@"picture"] == (id)[NSNull null] ? nil : [dictionary[@"picture"] dataUsingEncoding:NSUTF8StringEncoding]);
     EXCProject *project = [[EXCProject alloc] initWithTaskId:[dictionary[@"projejctId"] longValue]
                                              projectName:dictionary[@"projectName"]
-                                               startDate:dictionary[@"startData"]
-                                                 endDate:dictionary[@"endDate"]
+                                               startDate:[dateFormatter dateFromString:dictionary[@"startData"]]
+                                                 endDate:[dateFormatter dateFromString:dictionary[@"endData"]]
                                                  picture:picture
                                                    tasks:nil
                                                completed:((int)dictionary[@"completed"] == 1 ? true : false)];

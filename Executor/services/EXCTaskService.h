@@ -19,9 +19,9 @@
 - (NSMutableURLRequest *)createTaskRequestWithTask:(EXCTask *)task;
 - (NSMutableURLRequest *)updateTaskRequestWithTask:(EXCTask *)task;
 - (NSMutableURLRequest *)deleteTaskRequestwithTaskId:(long) taskId;
-
 - (NSData *)getPostDataWithTask:(EXCTask *)task;
-
+- (EXCTask *)getTaskWithJsonData:(NSData *)jsonData error:(NSError *)err;
+- (NSMutableArray *)getTasksWithJsonData:(NSData *)jsonData error:(NSError *)err;
 + (EXCTask *)getTaskWithDictionary:(NSDictionary *)dictioinary;
 
 @end

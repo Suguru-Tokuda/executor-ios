@@ -89,11 +89,35 @@
     return postData;
 }
 
+// JSON parser methods
+- (EXCTask *)getTaskWithJsonData:(NSData *)jsonData error:(NSError *)err {
+    NSDictionary *taskDictionary = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingAllowFragments error:&err];
+    if (err)
+        NSLog(@"failed to serialize into JSON:%@", err);
+    EXCTask *task = [EXCTaskService getTaskWithDictionary:taskDictionary];
+    return task;
+}
+
+- (NSMutableArray *)getTasksWithJsonData:(NSData *)jsonData error:(NSError *)err {
+    NSDictionary *taskDictionary = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingAllowFragments error:&err];
+    if (err)
+        NSLog(@"failed to serialize into JSON:%@", err);
+    NSMutableArray *tasks = [[NSMutableArray alloc] init];
+    for (NSDictionary *taskJson in taskDictionary) {
+        EXCTask *task = [EXCTaskService getTaskWithDictionary:taskJson];
+        [tasks addObject:task];
+    }
+    return tasks;
+}
+
 + (EXCTask *)getTaskWithDictionary:(NSDictionary *)dictionary {
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    dateFormatter.timeZone = [NSTimeZone systemTimeZone];
+    dateFormatter.dateFormat = @"yyyy-MM-dd HH:mm:ss";
     EXCTask *task = [[EXCTask alloc] initWithTaskId:[dictionary[@"taskId"] longValue]
                                      taskName:dictionary[@"taskName"]
-                                    startDate:dictionary[@"startDate"]
-                                      endDate:dictionary[@"endDate"]
+                                    startDate:[dateFormatter dateFromString:dictionary[@"startDate"]]
+                                      endDate:[dateFormatter dateFromString:dictionary[@"endDate"]]
                                     completed:((int)dictionary[@"completed"] == 1 ? true : false)
                                      approved:((int)dictionary[@"approved"] == 1 ? true : false)];
     return task;
