@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		7FBA7DD421A5ABF200759877 /* EXCMutableURLRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FBA7DD321A5ABF200759877 /* EXCMutableURLRequest.m */; };
+		BB5FE1F121B8D3ED0090BA3A /* EXCAuthority.m in Sources */ = {isa = PBXBuildFile; fileRef = BB5FE1F021B8D3ED0090BA3A /* EXCAuthority.m */; };
+		BB5FE1F421BA29BE0090BA3A /* EXCReviewService.m in Sources */ = {isa = PBXBuildFile; fileRef = BB5FE1F321BA29BE0090BA3A /* EXCReviewService.m */; };
 		BB6EC2F421A25E6F0054239C /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BB6EC2F321A25E6F0054239C /* AppDelegate.m */; };
 		BB6EC2F721A25E6F0054239C /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BB6EC2F621A25E6F0054239C /* ViewController.m */; };
 		BB6EC2FA21A25E6F0054239C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BB6EC2F821A25E6F0054239C /* Main.storyboard */; };
@@ -16,12 +18,13 @@
 		BB6EC30221A25E700054239C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = BB6EC30121A25E700054239C /* main.m */; };
 		BB6EC30C21A25E700054239C /* ExecutorTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BB6EC30B21A25E700054239C /* ExecutorTests.m */; };
 		BB6EC31721A25E700054239C /* ExecutorUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = BB6EC31621A25E700054239C /* ExecutorUITests.m */; };
-		BB6EC32821A262420054239C /* AccountInfoService.m in Sources */ = {isa = PBXBuildFile; fileRef = BB6EC32721A262420054239C /* AccountInfoService.m */; };
-		BB6EC32C21A269990054239C /* UsersService.m in Sources */ = {isa = PBXBuildFile; fileRef = BB6EC32B21A269990054239C /* UsersService.m */; };
+		BB6EC32821A262420054239C /* EXCAccountInfoService.m in Sources */ = {isa = PBXBuildFile; fileRef = BB6EC32721A262420054239C /* EXCAccountInfoService.m */; };
+		BB6EC32C21A269990054239C /* EXCUsersService.m in Sources */ = {isa = PBXBuildFile; fileRef = BB6EC32B21A269990054239C /* EXCUsersService.m */; };
 		BB6EC33121A26BDD0054239C /* EXCUser.m in Sources */ = {isa = PBXBuildFile; fileRef = BB6EC33021A26BDD0054239C /* EXCUser.m */; };
 		BB6EC33421A26E750054239C /* EXCProject.m in Sources */ = {isa = PBXBuildFile; fileRef = BB6EC33321A26E750054239C /* EXCProject.m */; };
 		BB6EC33721A270030054239C /* EXCTask.m in Sources */ = {isa = PBXBuildFile; fileRef = BB6EC33621A270030054239C /* EXCTask.m */; };
-		BBB8E8B621A65482001B327F /* ProjectService.m in Sources */ = {isa = PBXBuildFile; fileRef = BBB8E8B521A65482001B327F /* ProjectService.m */; };
+		BB8734AC21ABAE0C00A1F9CE /* EXCTaskService.m in Sources */ = {isa = PBXBuildFile; fileRef = BB8734AB21ABAE0C00A1F9CE /* EXCTaskService.m */; };
+		BBB8E8B621A65482001B327F /* EXCProjectService.m in Sources */ = {isa = PBXBuildFile; fileRef = BBB8E8B521A65482001B327F /* EXCProjectService.m */; };
 		BBEB3CAE21A3AFD40087B7D5 /* EXCReview.m in Sources */ = {isa = PBXBuildFile; fileRef = BBEB3CAD21A3AFD40087B7D5 /* EXCReview.m */; };
 /* End PBXBuildFile section */
 
@@ -45,6 +48,10 @@
 /* Begin PBXFileReference section */
 		7FBA7DD221A5ABF200759877 /* EXCMutableURLRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EXCMutableURLRequest.h; sourceTree = "<group>"; };
 		7FBA7DD321A5ABF200759877 /* EXCMutableURLRequest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EXCMutableURLRequest.m; sourceTree = "<group>"; };
+		BB5FE1EF21B8D3ED0090BA3A /* EXCAuthority.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EXCAuthority.h; sourceTree = "<group>"; };
+		BB5FE1F021B8D3ED0090BA3A /* EXCAuthority.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EXCAuthority.m; sourceTree = "<group>"; };
+		BB5FE1F221BA29BE0090BA3A /* EXCReviewService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EXCReviewService.h; sourceTree = "<group>"; };
+		BB5FE1F321BA29BE0090BA3A /* EXCReviewService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EXCReviewService.m; sourceTree = "<group>"; };
 		BB6EC2EF21A25E6F0054239C /* Executor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Executor.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BB6EC2F221A25E6F0054239C /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		BB6EC2F321A25E6F0054239C /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -61,18 +68,20 @@
 		BB6EC31221A25E700054239C /* ExecutorUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ExecutorUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		BB6EC31621A25E700054239C /* ExecutorUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ExecutorUITests.m; sourceTree = "<group>"; };
 		BB6EC31821A25E700054239C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		BB6EC32721A262420054239C /* AccountInfoService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AccountInfoService.m; sourceTree = "<group>"; };
-		BB6EC32921A262660054239C /* AccountInfoService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AccountInfoService.h; sourceTree = "<group>"; };
-		BB6EC32A21A269850054239C /* UsersService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UsersService.h; sourceTree = "<group>"; };
-		BB6EC32B21A269990054239C /* UsersService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UsersService.m; sourceTree = "<group>"; };
+		BB6EC32721A262420054239C /* EXCAccountInfoService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EXCAccountInfoService.m; sourceTree = "<group>"; };
+		BB6EC32921A262660054239C /* EXCAccountInfoService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EXCAccountInfoService.h; sourceTree = "<group>"; };
+		BB6EC32A21A269850054239C /* EXCUsersService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EXCUsersService.h; sourceTree = "<group>"; };
+		BB6EC32B21A269990054239C /* EXCUsersService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EXCUsersService.m; sourceTree = "<group>"; };
 		BB6EC32F21A26BB90054239C /* EXCUser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EXCUser.h; sourceTree = "<group>"; };
 		BB6EC33021A26BDD0054239C /* EXCUser.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EXCUser.m; sourceTree = "<group>"; };
 		BB6EC33221A26E650054239C /* EXCProject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EXCProject.h; sourceTree = "<group>"; };
 		BB6EC33321A26E750054239C /* EXCProject.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EXCProject.m; sourceTree = "<group>"; };
 		BB6EC33521A26FF50054239C /* EXCTask.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EXCTask.h; sourceTree = "<group>"; };
 		BB6EC33621A270030054239C /* EXCTask.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EXCTask.m; sourceTree = "<group>"; };
-		BBB8E8B421A65482001B327F /* ProjectService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProjectService.h; sourceTree = "<group>"; };
-		BBB8E8B521A65482001B327F /* ProjectService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProjectService.m; sourceTree = "<group>"; };
+		BB8734AA21ABAE0C00A1F9CE /* EXCTaskService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EXCTaskService.h; sourceTree = "<group>"; };
+		BB8734AB21ABAE0C00A1F9CE /* EXCTaskService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EXCTaskService.m; sourceTree = "<group>"; };
+		BBB8E8B421A65482001B327F /* EXCProjectService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EXCProjectService.h; sourceTree = "<group>"; };
+		BBB8E8B521A65482001B327F /* EXCProjectService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EXCProjectService.m; sourceTree = "<group>"; };
 		BBEB3CAC21A3AFD40087B7D5 /* EXCReview.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EXCReview.h; sourceTree = "<group>"; };
 		BBEB3CAD21A3AFD40087B7D5 /* EXCReview.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EXCReview.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -156,14 +165,18 @@
 		BB6EC32421A261300054239C /* services */ = {
 			isa = PBXGroup;
 			children = (
-				BB6EC32721A262420054239C /* AccountInfoService.m */,
-				BB6EC32921A262660054239C /* AccountInfoService.h */,
-				BB6EC32A21A269850054239C /* UsersService.h */,
-				BB6EC32B21A269990054239C /* UsersService.m */,
+				BB6EC32721A262420054239C /* EXCAccountInfoService.m */,
+				BB6EC32921A262660054239C /* EXCAccountInfoService.h */,
+				BB6EC32A21A269850054239C /* EXCUsersService.h */,
+				BB6EC32B21A269990054239C /* EXCUsersService.m */,
 				7FBA7DD221A5ABF200759877 /* EXCMutableURLRequest.h */,
 				7FBA7DD321A5ABF200759877 /* EXCMutableURLRequest.m */,
-				BBB8E8B421A65482001B327F /* ProjectService.h */,
-				BBB8E8B521A65482001B327F /* ProjectService.m */,
+				BBB8E8B421A65482001B327F /* EXCProjectService.h */,
+				BBB8E8B521A65482001B327F /* EXCProjectService.m */,
+				BB8734AA21ABAE0C00A1F9CE /* EXCTaskService.h */,
+				BB8734AB21ABAE0C00A1F9CE /* EXCTaskService.m */,
+				BB5FE1F221BA29BE0090BA3A /* EXCReviewService.h */,
+				BB5FE1F321BA29BE0090BA3A /* EXCReviewService.m */,
 			);
 			path = services;
 			sourceTree = "<group>";
@@ -200,6 +213,8 @@
 				BB6EC33621A270030054239C /* EXCTask.m */,
 				BBEB3CAC21A3AFD40087B7D5 /* EXCReview.h */,
 				BBEB3CAD21A3AFD40087B7D5 /* EXCReview.m */,
+				BB5FE1EF21B8D3ED0090BA3A /* EXCAuthority.h */,
+				BB5FE1F021B8D3ED0090BA3A /* EXCAuthority.m */,
 			);
 			path = models;
 			sourceTree = "<group>";
@@ -334,12 +349,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BB5FE1F421BA29BE0090BA3A /* EXCReviewService.m in Sources */,
+				BB8734AC21ABAE0C00A1F9CE /* EXCTaskService.m in Sources */,
 				BB6EC2F721A25E6F0054239C /* ViewController.m in Sources */,
-				BB6EC32821A262420054239C /* AccountInfoService.m in Sources */,
+				BB6EC32821A262420054239C /* EXCAccountInfoService.m in Sources */,
 				BBEB3CAE21A3AFD40087B7D5 /* EXCReview.m in Sources */,
-				BBB8E8B621A65482001B327F /* ProjectService.m in Sources */,
+				BB5FE1F121B8D3ED0090BA3A /* EXCAuthority.m in Sources */,
+				BBB8E8B621A65482001B327F /* EXCProjectService.m in Sources */,
 				BB6EC33121A26BDD0054239C /* EXCUser.m in Sources */,
-				BB6EC32C21A269990054239C /* UsersService.m in Sources */,
+				BB6EC32C21A269990054239C /* EXCUsersService.m in Sources */,
 				BB6EC33721A270030054239C /* EXCTask.m in Sources */,
 				BB6EC30221A25E700054239C /* main.m in Sources */,
 				7FBA7DD421A5ABF200759877 /* EXCMutableURLRequest.m in Sources */,

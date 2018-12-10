@@ -23,7 +23,11 @@
 @property (nonatomic) Boolean archived;
 @property (nonatomic) Boolean confirmed;
 
+@property (nonatomic) NSMutableArray *projects;
+@property (nonatomic) NSMutableArray *tasks;
+@property (nonatomic) NSMutableArray *authorities;
+
 - (instancetype)initWithFirstName:(NSString *)firstName lastName:(NSString *)lastName username:(NSString *)username email:(NSString *)email;
-- (instancetype)initWithId:(long)userId firstName:(NSString *)firstName lastName:(NSString *)lastName email:(NSString *)email username:(NSString *)username skills:(NSMutableArray *) skills picture:(NSData *)picture role:(NSString *)role;
+- (instancetype)initWithUserId:(long)userId firstName:(NSString *)firstName lastName:(NSString *)lastName email:(NSString *)email username:(NSString *)username skills:(NSMutableArray *) skills picture:(NSData *)picture role:(NSString *)role;
 
 @end

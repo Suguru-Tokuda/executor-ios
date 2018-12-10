@@ -6,10 +6,9 @@
 //  Copyright © 2018 Executor. All rights reserved.
 //
 
-#import "UsersService.h"
-#import "AccountInfoService.h"
+#import "EXCUsersService.h"
 
-@implementation UsersService
+@implementation EXCUsersService
 
 - (instancetype) init {
     self = [super init];
@@ -18,11 +17,10 @@
 }
 
 /* Beginning of request methods */
-- (NSMutableURLRequest *)getUserRequest:(NSString *)userId {
-    NSString *requestString = [NSString stringWithFormat:@"%@%@", self.endPoint, userId];
+- (NSMutableURLRequest *)getUserRequest:(long)userId {
+    NSString *requestString = [NSString stringWithFormat:@"%@/%ld", self.endPoint, userId];
     NSURL *url = [NSURL URLWithString:requestString];
     NSMutableURLRequest *req = [EXCMutableURLRequest requestWithURL:url];
-    [req setValue:@"application-json" forHTTPHeaderField:@"Accept"];
     return req;
 }
 
@@ -30,7 +28,6 @@
     NSString *requestString = [NSString stringWithFormat:@"%@", self.endPoint];
     NSURL *url = [NSURL URLWithString:requestString];
     NSMutableURLRequest *req = [EXCMutableURLRequest requestWithURL:url];
-    [req setValue:@"application-json" forHTTPHeaderField:@"Accept"];
     NSString *bodyString = [NSString stringWithFormat:@"email=%@&firstName=%@&lastName=%@&skills=%@", email, firstName, lastName, skills];
     NSData *postData = [bodyString dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:YES];
     [req setHTTPBody:postData];
@@ -42,21 +39,7 @@
     NSURL *url = [NSURL URLWithString:requestString];
     NSMutableURLRequest *req = [NSMutableURLRequest requestWithURL:url];
     [req setHTTPMethod:@"POST"];
-    NSString *skills = @"";
-    for (NSString *skill in user.skills)
-        skills = [NSString stringWithFormat: @"%@%@", skills, skill];
-    NSString *bodyString = [NSString stringWithFormat:@"firstName=%@&lastName=%@&email=%@&username=%@&password=%@&skills=%@&picture%@&archived=%@&confirmed=%@",
-                            user.firstName,
-                            user.lastName,
-                            user.email,
-                            user.username,
-                            user.password,
-                            skills,
-                            [NSString stringWithUTF8String:[user.picture bytes]],
-                            [NSString stringWithFormat:@"%d", (user.archived == true ? 1 : 0)],
-                            [NSString stringWithFormat:@"%d", (user.confirmed == true ? 1 : 0)]
-                            ];
-    NSData *postData = [bodyString dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:YES];
+    NSData *postData = [self getPostDataWithUser:user];
     [req setHTTPBody:postData];
     return req;
 }
@@ -67,6 +50,8 @@
     NSMutableURLRequest *req = [NSMutableURLRequest requestWithURL:url];
     [req setHTTPMethod:@"PATCH"];
     [req setValue:user forKey:@"user"];
+    NSData *postData = [self getPostDataWithUser:user];
+    [req setHTTPBody:postData];
     return req;
 }
 
@@ -75,7 +60,6 @@
     NSURL *url = [NSURL URLWithString:requestString];
     NSMutableURLRequest *req = [NSMutableURLRequest requestWithURL:url];
     [req setValue:email forKey:@"email"];
-    [req setValue:@"application-json" forHTTPHeaderField:@"Accept"];
     return req;
 }
 
@@ -118,18 +102,34 @@
 
 /* End of request methods */
 
+// -MARK: Post data method
+/* Returns the post data */
+- (NSData *)getPostDataWithUser:(EXCUser *)user {
+    NSString *skills = @"";
+    if (sizeof(skills) > 0) {
+        for (NSString *skill in user.skills)
+            skills = [NSString stringWithFormat: @"%@%@", skills, skill];
+    }
+    NSDictionary *jsonBodyDictionary = @{@"firstName":user.firstName, @"lastName":user.lastName, @"email":user.email, @"username":user.username, @"skills":skills, @"picture":[NSString stringWithUTF8String:[user.picture bytes]], @"archived":[NSString stringWithFormat:@"%d", (user.archived == true ? 1 : 0)], @"confirmed":[NSString stringWithFormat:@"%d", (user.confirmed == true ? 1 : 0)]};;
+    if (user.userId != 0) {
+        [jsonBodyDictionary setValue:[NSString stringWithFormat:@"%ld", user.userId] forKey:@"userId"];
+    } else {
+        [jsonBodyDictionary setValue:user.password forKey:@"password"];
+    }
+    NSData *postData = [NSJSONSerialization dataWithJSONObject:jsonBodyDictionary options:kNilOptions error:nil];
+    return postData;
+}
 
 /* This method returns a user object */
 - (EXCUser *)getUserWithJsonData:(NSData *)jsonData error:(NSError *)err {
     NSDictionary *userDictionary = [NSJSONSerialization JSONObjectWithData: jsonData options:NSJSONReadingAllowFragments error:&err];
-    if (err) {
+    if (err)
         NSLog(@"failed to serialize into JSON: %@", err);
-    }
     NSMutableArray *tempSkills = nil;
     if (userDictionary[@"skills"] != (id)[NSNull null])
         tempSkills = [NSMutableArray arrayWithArray:[userDictionary[@"skills"] componentsSeparatedByString:@";"]];
     NSData *picture = (userDictionary[@"picture"] == (id)[NSNull null] ? nil : [userDictionary[@"picture"] dataUsingEncoding:NSUTF8StringEncoding]);
-    EXCUser *user = [[EXCUser alloc] initWithId:[userDictionary[@"userId"] longValue]
+    EXCUser *user = [[EXCUser alloc] initWithUserId:[userDictionary[@"userId"] longValue]
                                       firstName:userDictionary[@"firstName"]
                                        lastName:userDictionary[@"lastName"]
                                           email:userDictionary[@"email"]
@@ -137,22 +137,41 @@
                                          skills:tempSkills
                                         picture:picture
                                            role:userDictionary[@"role"]];
+    if ([userDictionary[@"projects"] length] > 0) {
+        NSArray *projects = userDictionary[@"projects"];
+        for (NSDictionary *projectJSON in projects) {
+            EXCProject *project = [EXCProjectService getProjectWithDictionary:projectJSON];
+            [user.projects addObject:project];
+        }
+    } else {
+        user.projects = [[NSMutableArray alloc] init];
+    }
+    
+    if ([userDictionary[@"tasks"] length] > 0) {
+        NSArray *tasks = userDictionary[@"tasks"];
+        for (NSDictionary *taskJSON in tasks) {
+            EXCTask *task = [EXCTaskService getTaskWithDictionary:taskJSON];
+            [user.tasks addObject:task];
+        }
+    } else {
+        user.tasks = [[NSMutableArray alloc] init];
+    }
+    
     return user;
 }
 
-/* Returns the array of users */
+/* Returns an array of users */
 - (NSMutableArray *)getUsersWithJsonData:(NSData *)jsonData error:(NSError *)err {
     NSArray *userDictionary = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingAllowFragments error:&err];
-    if (err) {
+    if (err)
         NSLog(@"failed to serialize into JSON: %@", err);
-    }
     NSMutableArray *users = [[NSMutableArray alloc] init];
     for (NSDictionary *userJson in userDictionary) {
         NSMutableArray *tempSkills = nil;
         if (userJson[@"skills"] != (id)[NSNull null])
             tempSkills = [NSMutableArray arrayWithArray:[userJson[@"skills"] componentsSeparatedByString:@";"]];
         NSData *picture = (userJson[@"picture"] == (id)[NSNull null] ? nil : [userJson[@"picture"] dataUsingEncoding:NSUTF8StringEncoding]);
-        EXCUser *user = [[EXCUser alloc] initWithId:[userJson[@"userId"] longValue]
+        EXCUser *user = [[EXCUser alloc] initWithUserId:[userJson[@"userId"] longValue]
                                           firstName:userJson[@"firstName"]
                                            lastName:userJson[@"lastName"]
                                               email:userJson[@"email"]

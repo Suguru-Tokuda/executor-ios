@@ -10,13 +10,12 @@
 
 @interface EXCReview : NSObject
 
-@property (nonatomic) NSString *reviewId;
+@property (nonatomic) long reviewId;
 @property (nonatomic) NSString *title;
 @property (nonatomic) NSString *reviewDescription;
 @property (nonatomic) NSDate *postDate;
 
-- (instancetype)initWithReviewId:(NSString *)reviewId title:(NSString *)title reviewDescription:(NSString *)reviewDescription postDate:(NSDate *)postDate;
-
+- (instancetype)initWithReviewId:(long)reviewId title:(NSString *)title reviewDescription:(NSString *)reviewDescription postDate:(NSDate *)postDate;
 - (instancetype)initWithTitle:(NSString *)title reviewDescription:(NSString *)reviewDescription postDate:(NSDate *)postDate;
 
 @end

@@ -6,13 +6,9 @@
 //  Copyright © 2018 Executor. All rights reserved.
 //
 
-#import "AccountInfoService.h"
+#import "EXCAccountInfoService.h"
 
-@interface AccountInfoService ()
-
-@end
-
-@implementation AccountInfoService
+@implementation EXCAccountInfoService
 
 NSString *const BASE_URL = @"/Executor/api";
 NSString *productionAPIUrl = @"";
