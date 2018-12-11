@@ -13,6 +13,7 @@
 #import "EXCAccountInfoService.h"
 #import "EXCProjectService.h"
 #import "EXCTaskService.h"
+#import "EXCAuthorityService.h"
 #import "EXCMutableURLRequest.h"
 
 @interface EXCUsersService : NSObject

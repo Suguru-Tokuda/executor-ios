@@ -145,6 +145,15 @@
     } else {
         user.tasks = [[NSMutableArray alloc] init];
     }
+    
+    if ([userDictionary[@"authorities"] length] > 0) {
+        NSArray *authorities = userDictionary[@"authorities"];
+        for (NSDictionary *authJSON in authorities) {
+            EXCAuthority *authority = [EXCAuthorityService getAuthorityWithAuthorityDictionary:authJSON];
+            [user.authorities addObject:authority];
+        }
+    }
+    
     return user;
 }
 
