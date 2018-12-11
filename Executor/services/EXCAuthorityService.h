@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "EXCAuthority.h"
-#import "EXCAccountInfoService.h"
+#import "EXCSessionInfoService.h"
 
 @interface EXCAuthorityService : NSObject
 

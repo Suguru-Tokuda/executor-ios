@@ -10,7 +10,7 @@
 #import "EXCUser.h"
 #import "EXCProject.h"
 #import "EXCTask.h"
-#import "EXCAccountInfoService.h"
+#import "EXCSessionInfoService.h"
 #import "EXCProjectService.h"
 #import "EXCTaskService.h"
 #import "EXCAuthorityService.h"

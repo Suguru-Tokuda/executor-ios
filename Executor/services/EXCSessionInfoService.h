@@ -10,7 +10,7 @@
 #import "AppDelegate.h"
 #import "EXCMutableURLRequest.h"
 
-@interface EXCAccountInfoService : NSObject
+@interface EXCSessionInfoService : NSObject
 
 extern NSString *const BASE_URL;
 @property (nonatomic) NSString *productionAPIUrl;
