@@ -10,7 +10,7 @@
 
 @implementation EXCReviewService
 
-- (instancetype)init{
+- (instancetype)init {
     self = [super init];
     self.endPoint = [NSString stringWithFormat:@"%@%@", BASE_URL, @"/reviews"];
     return self;
@@ -66,12 +66,45 @@
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     dateFormatter.timeZone = [NSTimeZone systemTimeZone];
     dateFormatter.dateFormat = @"yyyy-MM-dd HH:mm:ss";
-    NSDictionary *jsonBodyDictionary = @{@"title":review.title, @"reviewDescription":review.reviewDescription, @"postDate":[dateFormatter stringFromDate:review.postDate]};;
+    NSDictionary *jsonBodyDictionary = @{@"title":review.reviewTitle, @"reviewDescription":review.reviewDescription, @"postDate":[dateFormatter stringFromDate:review.postDate]};;
     if (review.reviewId != 0) {
         [jsonBodyDictionary setValue:[NSString stringWithFormat:@"%ld", review.reviewId] forKey:@"reviewId"];
     }
     NSData *postData = [NSJSONSerialization dataWithJSONObject:jsonBodyDictionary options:kNilOptions error:nil];
     return postData;
 }
+
+// MARK: JSON parser methods
+- (EXCReview *)getReviewWithJsonData:(NSData *)jsonData error:(NSError *)err {
+    NSDictionary *reviewDictionary = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingAllowFragments error:&err];
+    if (err)
+        NSLog(@"failed to serialize into JSON:%@", err);
+    EXCReview *review = [EXCReviewService getReviewWithReviewDictionary:reviewDictionary];
+    return review;
+}
+
+- (NSMutableArray *)getReviewsWithJsonData:(NSData *)jsonData error:(NSError *)err {
+    NSArray *reviewDictioinary = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingAllowFragments error:&err];
+    if (err)
+        NSLog(@"failed to serialize into JSON:%@", err);
+    NSMutableArray *reviews = [[NSMutableArray alloc] init];
+    for (NSDictionary *reviewJson in reviewDictioinary) {
+        EXCReview *review = [EXCReviewService getReviewWithReviewDictionary:reviewJson];
+        [reviews addObject:review];
+    }
+    return reviews;
+}
+
++ (EXCReview *)getReviewWithReviewDictionary:(NSDictionary *)reviewDictionary {
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    dateFormatter.timeZone = [NSTimeZone systemTimeZone];
+    dateFormatter.dateFormat = @"yyyy-MM-dd HH:mm:ss";
+    EXCReview *review = [[EXCReview alloc] initWithReviewId:[reviewDictionary[@"reviewId"] longValue]
+                                                reviewTitle:reviewDictionary[@"reviewTitle"]
+                                          reviewDescription:reviewDictionary[@"reviewDescription"]
+                                                   postDate:[dateFormatter dateFromString:reviewDictionary[@"postDate"]]];
+    return review;
+}
+
 
 @end

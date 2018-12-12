@@ -125,18 +125,7 @@
     NSDictionary *userDictionary = [NSJSONSerialization JSONObjectWithData: jsonData options:NSJSONReadingAllowFragments error:&err];
     if (err)
         NSLog(@"failed to serialize into JSON: %@", err);
-    NSMutableArray *tempSkills = nil;
-    if (userDictionary[@"skills"] != (id)[NSNull null])
-        tempSkills = [NSMutableArray arrayWithArray:[userDictionary[@"skills"] componentsSeparatedByString:@";"]];
-    NSData *picture = (userDictionary[@"picture"] == (id)[NSNull null] ? nil : [userDictionary[@"picture"] dataUsingEncoding:NSUTF8StringEncoding]);
-    EXCUser *user = [[EXCUser alloc] initWithUserId:[userDictionary[@"userId"] longValue]
-                                      firstName:userDictionary[@"firstName"]
-                                       lastName:userDictionary[@"lastName"]
-                                          email:userDictionary[@"email"]
-                                       username:userDictionary[@"username"]
-                                         skills:tempSkills
-                                        picture:picture
-                                           role:userDictionary[@"role"]];
+    EXCUser *user = [EXCUsersService getUserWithUserDictionary:userDictionary];
     if ([userDictionary[@"projects"] length] > 0) {
         NSArray *projects = userDictionary[@"projects"];
         for (NSDictionary *projectJSON in projects) {
@@ -156,7 +145,6 @@
     } else {
         user.tasks = [[NSMutableArray alloc] init];
     }
-    
     return user;
 }
 
@@ -164,24 +152,29 @@
 - (NSMutableArray *)getUsersWithJsonData:(NSData *)jsonData error:(NSError *)err {
     NSArray *userDictionary = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingAllowFragments error:&err];
     if (err)
-        NSLog(@"failed to serialize into JSON: %@", err);
+        NSLog(@"failed to serialize into JSON:%@", err);
     NSMutableArray *users = [[NSMutableArray alloc] init];
     for (NSDictionary *userJson in userDictionary) {
-        NSMutableArray *tempSkills = nil;
-        if (userJson[@"skills"] != (id)[NSNull null])
-            tempSkills = [NSMutableArray arrayWithArray:[userJson[@"skills"] componentsSeparatedByString:@";"]];
-        NSData *picture = (userJson[@"picture"] == (id)[NSNull null] ? nil : [userJson[@"picture"] dataUsingEncoding:NSUTF8StringEncoding]);
-        EXCUser *user = [[EXCUser alloc] initWithUserId:[userJson[@"userId"] longValue]
-                                          firstName:userJson[@"firstName"]
-                                           lastName:userJson[@"lastName"]
-                                              email:userJson[@"email"]
-                                           username:@"username"
-                                             skills:tempSkills
-                                            picture:picture
-                                               role:userJson[@"role"]];
-        [users addObject: user];
+        EXCUser *user = [EXCUsersService getUserWithUserDictionary:userJson];
+        [users addObject:user];
     }
     return users;
+}
+
++ (EXCUser *)getUserWithUserDictionary:(NSDictionary *)userDictionary {
+    NSMutableArray *tempSkills = nil;
+    if (userDictionary[@"skills"] != (id)[NSNull null])
+        tempSkills = [NSMutableArray arrayWithArray:[userDictionary[@"skills"] componentsSeparatedByString:@";"]];
+    NSData *picture = (userDictionary[@"picture"] == (id)[NSNull null] ? nil : [userDictionary[@"picture"] dataUsingEncoding:NSUTF8StringEncoding]);
+    EXCUser *user = [[EXCUser alloc] initWithUserId:[userDictionary[@"userId"] longValue]
+                                          firstName:userDictionary[@"firstName"]
+                                           lastName:userDictionary[@"lastName"]
+                                              email:userDictionary[@"email"]
+                                           username:userDictionary[@"username"]
+                                             skills:tempSkills
+                                            picture:picture
+                                               role:userDictionary[@"role"]];
+    return user;
 }
 
 @end

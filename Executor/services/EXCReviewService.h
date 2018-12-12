@@ -20,6 +20,8 @@
 - (NSMutableURLRequest *)updateReviewRequestWithReview:(EXCReview *)review;
 - (NSMutableURLRequest *)deleteReviewRequestWithReviewId:(long)reviewId;
 - (NSData *)getReviewPostDataWithReview:(EXCReview *)review;
-
+- (EXCReview *)getReviewWithJsonData:(NSData *)jsonData error:(NSError *)err;
+- (NSMutableArray *)getReviewsWithJsonData:(NSData *)jsonData error:(NSError *)err;
++ (EXCReview *)getReviewWithReviewDictionary:(NSDictionary *)reviewDictionary;
 
 @end
