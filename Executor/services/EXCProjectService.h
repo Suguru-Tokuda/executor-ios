@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "EXCAccountInfoService.h"
+#import "EXCSessionInfoService.h"
 #import "EXCMutableURLRequest.h"
 #import "EXCProject.h"
 

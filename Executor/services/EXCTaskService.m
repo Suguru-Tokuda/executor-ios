@@ -79,8 +79,6 @@
                                          @"endDate":[dateFormatter stringFromDate:task.endDate],
                                          @"completed":[NSString stringWithFormat:@"%d", (task.completed == true ? 1: 0)],
                                          @"approved":[NSString stringWithFormat:@"%d", (task.approved == true ? 1: 0)],
-                                         @"projectId":(task.projectId == nil ? [NSNull null] : task.projectId),
-                                         @"userId":(task.userId == nil ? [NSNull null] : task.userId)
                                          };
     if (task.taskId != 0) {
         [jsonBodyDictionary setValue:[NSString stringWithFormat:@"%ld", task.taskId] forKey:@"taskId"];
@@ -119,7 +117,10 @@
                                     startDate:[dateFormatter dateFromString:dictionary[@"startDate"]]
                                       endDate:[dateFormatter dateFromString:dictionary[@"endDate"]]
                                     completed:((int)dictionary[@"completed"] == 1 ? true : false)
-                                     approved:((int)dictionary[@"approved"] == 1 ? true : false)];
+                                     approved:((int)dictionary[@"approved"] == 1 ? true : false)
+                                    projectId:[dictionary[@"project"][@"projectId"] longValue]
+                                       userId:[dictionary[@"user"][@"userId"] longValue]
+                     ];
     return task;
 }
 

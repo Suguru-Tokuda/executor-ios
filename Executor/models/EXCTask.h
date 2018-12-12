@@ -17,10 +17,11 @@
 @property (nonatomic) Boolean completed;
 @property (nonatomic) Boolean approved;
 
-@property (nonatomic) NSString *projectId;
-@property (nonatomic) NSString *userId;
+@property (nonatomic) long projectId;
+@property (nonatomic) long userId;
 
 - (instancetype)initWithName:(NSString *)taskName;
-- (instancetype)initWithTaskId:(long)taskId taskName:(NSString *)taskName startDate:(NSDate *)startDate endDate:(NSDate *)endDate completed: (Boolean)completed approved: (Boolean)approved;
+- (instancetype)initWithTaskId:(long)taskId taskName:(NSString *)taskName startDate:(NSDate *)startDate endDate:(NSDate *)endDate completed:(Boolean)completed approved:(Boolean)approved;
+- (instancetype)initWithTaskId:(long)taskId taskName:(NSString *)taskName startDate:(NSDate *)startDate endDate:(NSDate *)endDate completed:(Boolean)completed approved:(Boolean)approved projectId:(long)projectId userId:(long)userId;
 
 @end

@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "EXCTask.h"
-#import "EXCAccountInfoService.h"
+#import "EXCSessionInfoService.h"
 
 @interface EXCTaskService : NSObject
 
