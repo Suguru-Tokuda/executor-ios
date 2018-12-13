@@ -17,7 +17,6 @@ extern NSString *const BASE_URL;
 @property (nonatomic) NSString *devAPIUrl;
 @property (nonatomic) NSString *localhostUrl;
 
-+ (NSURLSession *)getSession;
 - (NSString *)getAPIUrl;
 - (NSMutableURLRequest *)getLoginRequestWithEmail:(NSString *)email password:(NSString *)password;
 

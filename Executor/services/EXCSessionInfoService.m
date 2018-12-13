@@ -15,11 +15,6 @@ NSString *productionAPIUrl = @"";
 NSString *devAPIUrl = @"";
 NSString *localhostUrl = @"http";
 
-+ (NSURLSession *)getSession {
-    NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration] delegate:nil delegateQueue:nil];
-    return session;
-}
-
 - (NSString *)getAPIUrl {
     AppDelegate *appDelegate = (AppDelegate *) [[UIApplication sharedApplication] delegate];
     NSString *apiIdentifier = appDelegate.apiIdentifier;
