@@ -110,7 +110,7 @@
         for (NSString *skill in user.skills)
             skills = [NSString stringWithFormat: @"%@%@", skills, skill];
     }
-    NSDictionary *jsonBodyDictionary = @{@"firstName":user.firstName, @"lastName":user.lastName, @"email":user.email, @"username":user.username, @"skills":skills, @"picture":[NSString stringWithUTF8String:[user.picture bytes]], @"archived":[NSString stringWithFormat:@"%d", (user.archived == true ? 1 : 0)], @"confirmed":[NSString stringWithFormat:@"%d", (user.confirmed == true ? 1 : 0)]};;
+    NSDictionary *jsonBodyDictionary = @{@"firstName":user.firstName, @"lastName":user.lastName, @"email":user.email, @"username":user.username, @"skills":skills, @"picture":[NSString stringWithUTF8String:[user.picture bytes]], @"archived":[NSString stringWithFormat:@"%d", (user.archived == true ? 1 : 0)], @"confirmed":[NSString stringWithFormat:@"%d", (user.confirmed == true ? 1 : 0)]};
     if (user.userId != 0) {
         [jsonBodyDictionary setValue:[NSString stringWithFormat:@"%ld", user.userId] forKey:@"userId"];
     } else {
